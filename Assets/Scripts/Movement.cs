@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody2D _rigidBody2D;
+    Rigidbody2D _rigidBody2D = default;
     [SerializeField] private float _movementVelocity = 10f;
-    [SerializeField] private float _JumpHeight = 10f;  
-    [SerializeField] Transform _feetPos = default;
+    [SerializeField] private float _jumpHeight = 10f;  
+    [SerializeField] Transform _feetTransform = default;
     [SerializeField] float _checkRadius = default;
     [SerializeField] LayerMask _groundLayer = default;
     [SerializeField] private float _jumpTime = default;
@@ -31,19 +31,19 @@ public class Movement : MonoBehaviour
             gameObject.transform.Translate(_movementVelocity * Time.deltaTime, 0, 0);
 
         }
-        _isGrounded = Physics2D.OverlapCircle(_feetPos.position, _checkRadius, _groundLayer);
+        _isGrounded = Physics2D.OverlapCircle(_feetTransform.position, _checkRadius, _groundLayer);
         if (_isGrounded == true && Input.GetKeyDown(KeyCode.Space))
         {
             _isJumping = true;
             _jumpCounter = _jumpTime;
-            _rigidBody2D.velocity = Vector2.up * _JumpHeight;
+            _rigidBody2D.velocity = Vector2.up * _jumpHeight;
         }
 
         if (Input.GetKey(KeyCode.Space) && _isJumping == true)
         {
             if (_jumpCounter > 0)
             {
-                _rigidBody2D.velocity = Vector2.up * _JumpHeight;
+                _rigidBody2D.velocity = Vector2.up * _jumpHeight;
                 _jumpCounter -= Time.deltaTime;
             }
             else 
