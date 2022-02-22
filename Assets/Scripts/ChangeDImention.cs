@@ -3,34 +3,22 @@ using UnityEngine;
 public class ChangeDImention : MonoBehaviour
 {
 
-    [SerializeField] private GameObject dimention;
-    //[SerializeField] private GameObject plataforma;
-    private bool verify;
+    [SerializeField] private GameObject _dimention;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (dimention.activeSelf)
+            if (_dimention.activeSelf)
             {           
-                dimention.SetActive(false);
+                _dimention.SetActive(false);
             }
             else
             {
-                dimention.SetActive(true);
+                _dimention.SetActive(true);
             }
            
         }
-        /*if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (plataforma.)
-            {
-                plataforma.SetActive(false);
-            }
-            else
-            {
-                plataforma.SetActive(true);
-            }*/
 
         
     }

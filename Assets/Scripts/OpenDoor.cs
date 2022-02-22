@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class OpenDoor : MonoBehaviour
 {
-    [SerializeField] private GameObject key;
+    [SerializeField] private GameObject _key;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (key.activeSelf)
+        if (_key.activeSelf)
         {
-            key.SetActive(false);
+            _key.SetActive(false);
         }
     }
 }
