@@ -36,14 +36,14 @@ public class Movement : MonoBehaviour
         {
             _isJumping = true;
             _jumpCounter = _jumpTime;
-            _rigidBody2D.velocity = Vector2.up * _jumpHeight;
+            _rigidBody2D.AddForce(Vector2.up * _jumpHeight, ForceMode2D.Force);
         }
 
         if (Input.GetKey(KeyCode.Space) && _isJumping == true)
         {
             if (_jumpCounter > 0)
             {
-                _rigidBody2D.velocity = Vector2.up * _jumpHeight;
+                _rigidBody2D.AddForce(Vector2.up * _jumpHeight, ForceMode2D.Force);
                 _jumpCounter -= Time.deltaTime;
             }
             else 
