@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementVelocity: 10
-  _jumpHeight: 0.4
+  _jumpHeight: 0.45
   _feetTransform: {fileID: 1138553865}
   _checkRadius: 0.3
   _groundLayer:
