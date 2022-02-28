@@ -5,38 +5,49 @@ using UnityEngine;
 public class BasicEnemy : MonoBehaviour
 {
 
-    [SerializeField] private float _enemyVelocity = default;
-    [SerializeField] private float _enemyDistance = default;
+    private bool _mustPatrol = default;
+    private bool _mustTurn = default;
+    [SerializeField] private float _walkSpeed = 300;
+    [SerializeField] private Rigidbody2D _rigidBody2d = default;
     [SerializeField] private Transform _groundCheck = default;
-    [SerializeField] private bool _movingRigth = default;
-    private Rigidbody2D _rigidBody2d = default;
+    [SerializeField] private LayerMask _groundLayer = default;
+    [SerializeField] private Collider2D _bodyCollider = default;
+
 
     private void Start()
     {
-        _rigidBody2d = GetComponent<Rigidbody2D>();
+        _mustPatrol = true;
+    }
+
+    private void Update()
+    {
+        if (_mustPatrol)
+        {
+            Patrol();
+        }
     }
 
     private void FixedUpdate()
     {
-        RaycastHit2D _checkFloor = Physics2D.Raycast(_groundCheck.position, Vector2.down, _enemyDistance);
-        _rigidBody2d.velocity = new Vector2(_enemyVelocity, _rigidBody2d.velocity.y);
-
-        if(_groundCheck == false)
+        if (_mustPatrol)
         {
-            Turn();
+            _mustTurn = !Physics2D.OverlapCircle(_groundCheck.position, 0.1f, _groundLayer);
         }
     }
 
-    private void Turn()
+    void Patrol()
     {
-        _movingRigth = !_movingRigth;
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
-        _enemyVelocity *= -1;
+        if (_mustTurn || _bodyCollider.IsTouchingLayers(_groundLayer))
+        {
+            Flip();
+        }
+        _rigidBody2d.velocity = new Vector2(_walkSpeed * Time.fixedDeltaTime, _rigidBody2d.velocity.y);
     }
-
-    private void OnDrawGizmos()
+    void Flip()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(_groundCheck.transform.position, _groundCheck.transform.position + Vector3.down * _enemyDistance);
+        _mustPatrol = false;
+        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        _walkSpeed = _walkSpeed * -1;
+        _mustPatrol = true;
     }
 }
