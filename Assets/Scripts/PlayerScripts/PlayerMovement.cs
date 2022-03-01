@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D _rigidBody2D = default;
     [SerializeField] private float _movementVelocity = 10f;

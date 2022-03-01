@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChangeDImention : MonoBehaviour
+public class ChangeDimention : MonoBehaviour
 {
 
     [SerializeField] private GameObject _dimention;
