@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpTime = default;
     private bool _isGrounded = default;
     private bool _isJumping = default;
+    private bool _isDeath = false;
     private float _jumpCounter = default;
     
 
@@ -21,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (_isDeath)
+        {
+            return;
+        }
+
         if (Input.GetKey(KeyCode.A))
         {
             gameObject.transform.Translate(-_movementVelocity * Time.deltaTime, 0, 0);
@@ -57,6 +63,12 @@ public class PlayerMovement : MonoBehaviour
         {
             _isJumping = false;
         }
+    }
+
+    public void PlayerIsDeath()
+    {
+        _isDeath = true;
+        FindObjectOfType<LevelManager>().Restart();
     }
 }
 

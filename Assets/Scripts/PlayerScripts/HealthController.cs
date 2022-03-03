@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private int _playerHealth = default;
@@ -17,10 +15,11 @@ public class HealthController : MonoBehaviour
 
     public void UpdateHealth()
     {
-        /*if (_playerHealth <= 0 )
+        if (_playerHealth <= 0 )
         {
-            LoadScene();
-        }*/
+            var playerMovement = gameObject.GetComponent<PlayerMovement>();
+            playerMovement.PlayerIsDeath();
+        }
         if (_playerHealth > _healthNumber)
         {
             _playerHealth = _healthNumber;
@@ -52,10 +51,6 @@ public class HealthController : MonoBehaviour
         _playerHealth -= _touchDamage;
         UpdateHealth();
     }
-    /*private void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-        Time.timeScale = 1;
-    }*/
+ 
 }
 
