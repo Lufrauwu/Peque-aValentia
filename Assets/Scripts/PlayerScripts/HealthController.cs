@@ -11,7 +11,7 @@ public class HealthController : MonoBehaviour
 
     private void Awake()
     {
-        var playerMovement = gameObject.GetComponent<PlayerMovement>();
+        //var playerMovement = gameObject.GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -23,7 +23,8 @@ public class HealthController : MonoBehaviour
     {
         if (_playerHealth <= 0 )
         {
-           playerMovement.PlayerIsDeath();
+            var playerMovement = gameObject.GetComponent<PlayerMovement>();
+            playerMovement.PlayerIsDeath();
         }
         if (_playerHealth > _healthNumber)
         {
