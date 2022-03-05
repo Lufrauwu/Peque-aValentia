@@ -8,6 +8,12 @@ public class HealthController : MonoBehaviour
     [SerializeField] private Sprite _fullContainer = default;
     [SerializeField] private Sprite _emptyContainer = default;
     [SerializeField] private int _touchDamage = default;
+
+    private void Awake()
+    {
+        var playerMovement = gameObject.GetComponent<PlayerMovement>();
+    }
+
     private void Update()
     {
         UpdateHealth();
@@ -17,8 +23,7 @@ public class HealthController : MonoBehaviour
     {
         if (_playerHealth <= 0 )
         {
-            var playerMovement = gameObject.GetComponent<PlayerMovement>();
-            playerMovement.PlayerIsDeath();
+           playerMovement.PlayerIsDeath();
         }
         if (_playerHealth > _healthNumber)
         {
@@ -51,6 +56,4 @@ public class HealthController : MonoBehaviour
         _playerHealth -= _touchDamage;
         UpdateHealth();
     }
- 
 }
-

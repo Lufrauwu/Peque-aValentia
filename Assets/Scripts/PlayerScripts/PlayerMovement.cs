@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     Rigidbody2D _rigidBody2D = default;
     [SerializeField] private float _jumpHeight = default;  
     [SerializeField] Transform _feetTransform = default;
@@ -15,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private bool _isDeath = false;
     private float _jumpCounter = default;
     
-
     void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();   
@@ -56,20 +54,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        // controller.
-    }
-
-    private void Flip()
-    {
-
-    }
-
     public void PlayerIsDeath()
     {
         _isDeath = true;
-        FindObjectOfType<LevelManager>().Restart();
+        LevelManager.instance.Restart();
     }
 }
 

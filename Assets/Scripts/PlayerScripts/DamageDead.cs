@@ -10,5 +10,4 @@ public class DamageDead : MonoBehaviour
             healthController.ReduceHealth();
         }
     }
-
 }
