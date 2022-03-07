@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrounded = default;
     private bool _isJumping = default;
     private bool _isDeath = false;
-    private bool _facingRigth = true;
+    private bool _facingRight = true;
  
     void Start()
     {
@@ -29,11 +29,11 @@ public class PlayerMovement : MonoBehaviour
         }
         _horizontalMove = Input.GetAxisRaw("Horizontal");
         transform.position += new Vector3(_horizontalMove, 0, 0) * Time.deltaTime * _walkSpeed;
-        if (_horizontalMove < 0 &&_facingRigth)
+        if (_horizontalMove < 0 &&_facingRight)
         {
             Flip();
         }
-        else if (_horizontalMove > 0 && !_facingRigth)
+        else if (_horizontalMove > 0 && !_facingRight)
         {
             Flip();
         }
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        _facingRigth = !_facingRigth;
+        _facingRight = !_facingRight;
         transform.Rotate(0f, 180f, 0f);
     }
 }
