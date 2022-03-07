@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     public void PlayerIsDeath()
     {
         _isDeath = true;
-        LevelManager.instance.Restart();
+        LevelManager.Instance.Restart();
     }
 
     private void Flip()
