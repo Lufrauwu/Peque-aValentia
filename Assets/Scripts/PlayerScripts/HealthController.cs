@@ -1,16 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-public class Health : MonoBehaviour
+public class HealthController : MonoBehaviour
 {
     [SerializeField] private int _playerHealth = default;
     [SerializeField] private int _healthNumber = default;
     [SerializeField] private Image[] _lifeContainer = default;
     [SerializeField] private Sprite _fullContainer = default;
     [SerializeField] private Sprite _emptyContainer = default;
+    [SerializeField] private int _touchDamage = default;
+    private PlayerMovement playerMovement = default;
+
+    private void Awake()
+    {
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
+    }
 
     private void Update()
     {
+        UpdateHealth();
+    }
+
+    public void UpdateHealth()
+    {
+        if (_playerHealth <= 0 )
+        {
+            playerMovement.PlayerIsDeath();
+        }
         if (_playerHealth > _healthNumber)
         {
             _playerHealth = _healthNumber;
@@ -35,5 +50,11 @@ public class Health : MonoBehaviour
                 _lifeContainer[i].enabled = false;
             }
         }
+    }
+
+    public void ReduceHealth()
+    {
+        _playerHealth -= _touchDamage;
+        UpdateHealth();
     }
 }
