@@ -4,6 +4,7 @@ public class BasicEnemy : MonoBehaviour
 {
     private bool _mustPatrol = true;
     private bool _mustTurn = default;
+    [SerializeField] private int _enemyHealth = 10;
     [SerializeField] private float _walkSpeed = 300;
     [SerializeField] private Rigidbody2D _rigidBody2d = default;
     [SerializeField] private Transform _groundCheck = default;
@@ -40,6 +41,20 @@ public class BasicEnemy : MonoBehaviour
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
         _walkSpeed = _walkSpeed * -1;
         _mustPatrol = true;
+    }
+
+    public void TakeDamage(int _damageRecived)
+    {
+        _enemyHealth -= _damageRecived;
+        if (_enemyHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
 

@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrounded = default;
     private bool _isJumping = default;
     private bool _isDeath = false;
+    private bool _facingRigth = true;
  
-    
     void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();   
@@ -29,6 +29,14 @@ public class PlayerMovement : MonoBehaviour
         }
         _horizontalMove = Input.GetAxisRaw("Horizontal");
         transform.position += new Vector3(_horizontalMove, 0, 0) * Time.deltaTime * _walkSpeed;
+        if (_horizontalMove < 0 &&_facingRigth)
+        {
+            Flip();
+        }
+        else if (_horizontalMove > 0 && !_facingRigth)
+        {
+            Flip();
+        }
         _isGrounded = Physics2D.OverlapCircle(_feetTransform.position, _checkRadius, _groundLayer);
         if (_isGrounded == true && Input.GetButtonDown("Jump"))
         {
@@ -61,5 +69,11 @@ public class PlayerMovement : MonoBehaviour
     {
         _isDeath = true;
         LevelManager.instance.Restart();
+    }
+
+    private void Flip()
+    {
+        _facingRigth = !_facingRigth;
+        transform.Rotate(0f, 180f, 0f);
     }
 }
