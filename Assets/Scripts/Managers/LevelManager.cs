@@ -3,18 +3,17 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager instance = default;
+    public static LevelManager Instance {get; private set;}
 
     private void Awake()
     {
-        if (instance)
+        if (Instance)
         {
-            Destroy(this.gameObject);
-           
+            Destroy(this.gameObject);       
         }
         else
         {
-            instance = this;
+            Instance = this;
         }
     }
 
