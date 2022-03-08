@@ -17,26 +17,31 @@ public class PlayerMovement : MonoBehaviour
     private bool _isDeath = false;
     private bool _facingRight = true;
     private PlayerController _playerController = default;
+    private InputAction _inputMove = default;
+    private InputAction _inputJump = default;
 
     private void Awake()
     {
         _playerController = new PlayerController();
-    }
-
-    private void OnEnable()
-    {
-        _playerController.Enable();
+         _playerController.Enable();
+        _inputMove = _playerController.Land.Move;
+        _inputMove.Enable();
+        _inputJump = _playerController.Land.Jump;
+        _inputJump.Enable();
+        _inputJump.started += Jump;
+        _inputJump.canceled += EndJump;
     }
 
     private void OnDisable()
     {
+        _inputMove.Disable();
+        _inputJump.Disable();
         _playerController.Disable();
     }
 
     void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
-       // _playerController.Land.Jump.performed += _ => Jump();
     }
 
     void Update()
@@ -45,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        _horizontalMove = _playerController.Land.Move.ReadValue<float>();
+        _horizontalMove = _inputMove.ReadValue<float>();
         Vector3 currentPosition = transform.position;
         currentPosition.x += _horizontalMove * _walkSpeed * Time.deltaTime;
         transform.position = currentPosition;
@@ -57,44 +62,19 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
-        _isGrounded = Physics2D.OverlapCircle(_feetTransform.position, _checkRadius, _groundLayer);
-       /* if (_isGrounded == true && Input.GetButtonDown("Jump"))
-        {
-            _isJumping = true;
-            _jumpCounter = _jumpTime;
-            _rigidBody2D.velocity = Vector2.up * _jumpHeight;
-        }
-
-        if (Input.GetButtonDown("Jump") && _isJumping == true)
-        {
-            if (_jumpCounter > 0)
-            {
-                _rigidBody2D.velocity = Vector2.up * _jumpHeight;
-                _jumpCounter -= Time.deltaTime;
-            }
-            else 
-            {
-                _isJumping = false;
-            }
-            
-        }
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            _isJumping = false;
-        }*/
     }
 
     private void Jump(InputAction.CallbackContext context)
     {
-        if (_isGrounded == true && context.performed)
+        _isGrounded = Physics2D.OverlapCircle(_feetTransform.position, _checkRadius, _groundLayer);
+        if (_isGrounded == true)
         {
             _isJumping = true;
             _jumpCounter = _jumpTime;
             _rigidBody2D.velocity = Vector2.up * _jumpHeight;
         }
 
-        if (context.performed && _isJumping == true)
+        if (_isJumping == true)
         {
             if (_jumpCounter > 0)
             {
@@ -105,13 +85,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 _isJumping = false;
             }
-
         }
+    }
 
-        if (context.canceled)   
-        {
-            _isJumping = false;
-        }
+    private void EndJump(InputAction.CallbackContext context)
+    {
+        _isJumping = false;
     }
 
     public void PlayerIsDeath()
