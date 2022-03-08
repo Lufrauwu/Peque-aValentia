@@ -5,10 +5,14 @@ public class BetterJump : MonoBehaviour
     [SerializeField] private float _fallMultiplier = default;
     [SerializeField] private float _lowJumpMultiplier = default;
     private Rigidbody2D _rigidBody2D = default;
+    private PlayerController _playerController = default;
+    private bool _inputJump = default;
 
     private void Awake()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
+        _inputJump = _playerController.Land.Jump.
+
     }
 
     private void Update()
