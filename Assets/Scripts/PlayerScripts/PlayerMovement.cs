@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _playerController = new PlayerController();
-         _playerController.Enable();
+        _playerController.Enable();
         _inputMove = _playerController.Land.Move;
         _inputMove.Enable();
         _inputJump = _playerController.Land.Jump;
