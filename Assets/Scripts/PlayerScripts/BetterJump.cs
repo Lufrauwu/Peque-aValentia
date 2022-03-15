@@ -13,7 +13,7 @@ public class BetterJump : MonoBehaviour
     private void Awake()
     {
         _playerController = new PlayerController();
-        _rigidBody2D = GetComponent<Rigidbody2D>();  
+        _rigidBody2D = GetComponent<Rigidbody2D>();
         _inputJump = _playerController.Land.Jump;
         _inputJump.Enable();
         _inputJump.started += context => _isPressing = true;
@@ -32,7 +32,7 @@ public class BetterJump : MonoBehaviour
 
     private void JumpBetter()
     {
-        if(_rigidBody2D.velocity.y < 0)
+        if (_rigidBody2D.velocity.y < 0)
         {
             _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
         }
