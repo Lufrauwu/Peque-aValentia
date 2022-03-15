@@ -41,4 +41,5 @@ public class BetterJump : MonoBehaviour
             _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (_lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
-}
+}   
+
