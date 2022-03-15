@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,10 +16,32 @@ public class PlayerMovement : MonoBehaviour
     private bool _isJumping = default;
     private bool _isDeath = false;
     private bool _facingRight = true;
- 
+    private PlayerController _playerController = default;
+    private InputAction _inputMove = default;
+    private InputAction _inputJump = default;
+
+    private void Awake()
+    {
+        _playerController = new PlayerController();
+        _playerController.Enable();
+        _inputMove = _playerController.Land.Move;
+        _inputMove.Enable();
+        _inputJump = _playerController.Land.Jump;
+        _inputJump.Enable();
+        _inputJump.started += Jump;
+        _inputJump.canceled += EndJump;
+    }
+
+    private void OnDisable()
+    {
+        _inputMove.Disable();
+        _inputJump.Disable();
+        _playerController.Disable();
+    }
+
     void Start()
     {
-        _rigidBody2D = GetComponent<Rigidbody2D>();   
+        _rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -27,8 +50,10 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        _horizontalMove = Input.GetAxisRaw("Horizontal");
-        transform.position += new Vector3(_horizontalMove, 0, 0) * Time.deltaTime * _walkSpeed;
+        _horizontalMove = _inputMove.ReadValue<float>();
+        Vector3 currentPosition = transform.position;
+        currentPosition.x += _horizontalMove * _walkSpeed * Time.deltaTime;
+        transform.position = currentPosition;
         if (_horizontalMove < 0 &&_facingRight)
         {
             Flip();
@@ -37,32 +62,35 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+    }
+
+    private void Jump(InputAction.CallbackContext context)
+    {
         _isGrounded = Physics2D.OverlapCircle(_feetTransform.position, _checkRadius, _groundLayer);
-        if (_isGrounded == true && Input.GetButtonDown("Jump"))
+        if (_isGrounded == true)
         {
             _isJumping = true;
             _jumpCounter = _jumpTime;
             _rigidBody2D.velocity = Vector2.up * _jumpHeight;
         }
 
-        if (Input.GetButtonDown("Jump") && _isJumping == true)
+        if (_isJumping == true)
         {
             if (_jumpCounter > 0)
             {
                 _rigidBody2D.velocity = Vector2.up * _jumpHeight;
                 _jumpCounter -= Time.deltaTime;
             }
-            else 
+            else
             {
                 _isJumping = false;
             }
-            
         }
+    }
 
-        if (Input.GetButtonUp("Jump"))
-        {
-            _isJumping = false;
-        }
+    private void EndJump(InputAction.CallbackContext context)
+    {
+        _isJumping = false;
     }
 
     public void PlayerIsDeath()

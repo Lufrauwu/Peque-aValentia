@@ -1,26 +1,31 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ChangeDimention : MonoBehaviour
 {
+    [SerializeField] private GameObject _dimention = default;
+    private PlayerController _playerController = default;
+    private InputAction _inputDimention = default;
 
-    [SerializeField] private GameObject _dimention;
-
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (_dimention.activeSelf)
-            {           
-                _dimention.SetActive(false);
-            }
-            else
-            {
-                _dimention.SetActive(true);
-            }
-           
-        }
+        _playerController = new PlayerController();
+        _playerController.Enable();
+        _inputDimention = _playerController.Land.ChangeDimention;
+        _inputDimention.Enable();
+        _inputDimention.started += _ => DimentionalChange();
+    }
 
-        
+    private void OnDisable()
+    {
+        _playerController.Disable();
+        _inputDimention.Disable();
+    }
+
+    private void DimentionalChange()
+    {
+        _dimention.SetActive(!_dimention.activeSelf);
     }
 
 }
+
