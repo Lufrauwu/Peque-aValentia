@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ChangeDimention : MonoBehaviour
+public class ChangeDimentions : MonoBehaviour
 {
     [SerializeField] private GameObject _dimention = default;
     private PlayerController _playerController = default;
