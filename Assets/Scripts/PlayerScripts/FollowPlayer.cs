@@ -9,6 +9,7 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] private float _targetPosition = default;
     [SerializeField] private Transform _playerTransform = default;
     [SerializeField] private List<Vector3> _savedPositions = default;
+    private bool _facingRigth = true;
     private Transform _targetTransform = default;
     private Rigidbody2D _rigidBody2D = default;
     private float _maximunSaved = default;
@@ -23,8 +24,15 @@ public class FollowPlayer : MonoBehaviour
     void Update()
     {
         TargetFollow();
-        FlipFollower();
         SaveTransform();
+        if (_playerTransform.position.x < transform.position.x && _facingRigth)
+        {
+            FlipFollower();
+        }
+        else if (_playerTransform.position.x > transform.position.x && !_facingRigth)
+        {
+            FlipFollower();
+        }
     }
 
     void TargetFollow()
@@ -38,14 +46,8 @@ public class FollowPlayer : MonoBehaviour
 
     void FlipFollower()
     {
-        if (_playerTransform.position.x > transform.position.x)
-        {
-            transform.Rotate(0f, 0f, 0f);
-        }
-        else if (_playerTransform.position.x < transform.position.x)
-        {
-            transform.Rotate(0f, 180f, 0f);
-        }
+        _facingRigth = !_facingRigth;
+        transform.Rotate(0f, 180f, 0f);
     }
 
     public void SaveTransform()
