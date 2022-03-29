@@ -36,3 +36,4 @@ public class Follower : MonoBehaviour
         transform.position = newPosition;
     }
 }
+

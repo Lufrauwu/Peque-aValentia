@@ -27,3 +27,4 @@ public class FollowerMaster : MonoBehaviour
         positions.Add(newPosition);
     }
 }
+
