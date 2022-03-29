@@ -39,7 +39,7 @@ public class FollowPlayer : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, _targetTransform.position) > _targetPosition)
         {
-            transform.position = Vector2.Lerp(transform.position, _savedPositions[5], _followSpeed * Time.deltaTime);
+            transform.position = Vector2.Lerp(transform.position, _savedPositions[0], _followSpeed * Time.deltaTime);
         }
 
     }
@@ -52,11 +52,10 @@ public class FollowPlayer : MonoBehaviour
 
     public void SaveTransform()
     {
-        _savedPositions.Insert(0, _playerTransform.position);
+        _savedPositions.Insert(0, _targetTransform.position);
         if (_savedPositions.Count > _maximunSaved)
         {
             _savedPositions.RemoveAt(_savedPositions.Count - 1);
         }
     }
 }
-
