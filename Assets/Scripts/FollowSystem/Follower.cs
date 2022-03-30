@@ -21,7 +21,7 @@ public class Follower : MonoBehaviour
 
     private void TryChangeDestination()
     {
-        if (_master.Positions.Length == 0) return;
+        if (_master.Positions.Length == 2) return;
 
         var lastPosition = _master.Positions.First();
 
