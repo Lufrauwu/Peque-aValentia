@@ -49,6 +49,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""SwitchMagic"",
+                    ""type"": ""Button"",
+                    ""id"": ""d428877b-3d4b-498a-a8a3-2c5802318d42"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -181,6 +189,28 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f2f407f-795f-4b8c-84c5-2ee8613544e0"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""SwitchMagic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""436783d0-7881-436f-a29a-4519a3b7dd83"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwitchMagic"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -724,6 +754,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
         m_Land_ChangeDimention = m_Land.FindAction("ChangeDimention", throwIfNotFound: true);
         m_Land_Fire = m_Land.FindAction("Fire", throwIfNotFound: true);
+        m_Land_SwitchMagic = m_Land.FindAction("SwitchMagic", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -789,6 +820,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private readonly InputAction m_Land_Jump;
     private readonly InputAction m_Land_ChangeDimention;
     private readonly InputAction m_Land_Fire;
+    private readonly InputAction m_Land_SwitchMagic;
     public struct LandActions
     {
         private @PlayerController m_Wrapper;
@@ -797,6 +829,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Land_Jump;
         public InputAction @ChangeDimention => m_Wrapper.m_Land_ChangeDimention;
         public InputAction @Fire => m_Wrapper.m_Land_Fire;
+        public InputAction @SwitchMagic => m_Wrapper.m_Land_SwitchMagic;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -818,6 +851,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Fire.started -= m_Wrapper.m_LandActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnFire;
+                @SwitchMagic.started -= m_Wrapper.m_LandActionsCallbackInterface.OnSwitchMagic;
+                @SwitchMagic.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnSwitchMagic;
+                @SwitchMagic.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnSwitchMagic;
             }
             m_Wrapper.m_LandActionsCallbackInterface = instance;
             if (instance != null)
@@ -834,6 +870,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @SwitchMagic.started += instance.OnSwitchMagic;
+                @SwitchMagic.performed += instance.OnSwitchMagic;
+                @SwitchMagic.canceled += instance.OnSwitchMagic;
             }
         }
     }
@@ -967,6 +1006,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnChangeDimention(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnSwitchMagic(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

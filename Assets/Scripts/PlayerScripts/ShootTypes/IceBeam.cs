@@ -9,6 +9,7 @@ public class IceBeam : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer = default;
     private PlayerController _playerController = default;
     private InputAction _inputShoot = default;
+    private bool _shootEnable = false;
 
     private void Start()
     {
@@ -19,8 +20,17 @@ public class IceBeam : MonoBehaviour
         _playerController.Land.Fire.performed += _ => StartCoroutine(Shoot());
     }
 
+    private void Update()
+    {
+        
+    }
+
     IEnumerator Shoot()
     {
+        if (!_shootEnable)
+        {
+            yield break;
+        }
         RaycastHit2D _hitInfo = Physics2D.Raycast(_firePoint.position, _firePoint.right);
         if (_hitInfo)
         {
@@ -43,6 +53,13 @@ public class IceBeam : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         _lineRenderer.enabled = false;
     }
+
+    public void ToggleActivation()
+    {
+        _shootEnable = !_shootEnable;
+        Debug.Log("IceBeam activado: " + _shootEnable);
+    }
+
 
 
 }

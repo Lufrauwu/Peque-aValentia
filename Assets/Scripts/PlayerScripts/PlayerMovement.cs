@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         _inputMove.Enable();
         _inputJump = _playerController.Land.Jump;
         _inputJump.Enable();
+
         _inputJump.started += Jump;
         _inputJump.canceled += EndJump;
     }
