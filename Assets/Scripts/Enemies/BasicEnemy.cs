@@ -1,46 +1,37 @@
 using UnityEngine;
+using System.Collections;
 
 public class BasicEnemy : MonoBehaviour
 {
-    private bool _mustPatrol = true;
-    private bool _mustTurn = default;
-    [SerializeField] private int _enemyHealth = 10;
-    [SerializeField] private float _walkSpeed = 300;
-    [SerializeField] private Rigidbody2D _rigidBody2d = default;
+    private bool _movingRight = true;
+    private float _rayDistance = 2.0f;
     [SerializeField] private Transform _groundCheck = default;
-    [SerializeField] private LayerMask _groundLayer = default;
-    [SerializeField] private Collider2D _bodyCollider = default;
+    [SerializeField] private int _enemyHealth = 10;
+    [SerializeField] private float _walkSpeed = 10;
+    [SerializeField] private Animator _enemyAnimator = default;
+
+    private void Awake()
+    {
+        _enemyAnimator = GetComponent<Animator>();
+    }
     private void Update()
     {
-        if (_mustPatrol)
+        _enemyAnimator.Play("Walk_Bug");
+        transform.Translate(Vector2.right * _walkSpeed * Time.deltaTime);
+        RaycastHit2D groundInfo = Physics2D.Raycast(_groundCheck.position, Vector2.down, _rayDistance);
+        if (groundInfo.collider == false)
         {
-            Patrol();
+            if (_movingRight)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                _movingRight = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                _movingRight = true;
+            }
         }
-    }
-
-    private void FixedUpdate()
-    {
-        if (_mustPatrol)
-        {
-            _mustTurn = !Physics2D.OverlapCircle(_groundCheck.position, 0.1f, _groundLayer);
-        }
-    }
-
-    void Patrol()
-    {
-        if (_mustTurn || _bodyCollider.IsTouchingLayers(_groundLayer))
-        {
-            Flip();
-        }
-        _rigidBody2d.velocity = new Vector2(_walkSpeed * Time.fixedDeltaTime, _rigidBody2d.velocity.y);
-    }
-
-    void Flip()
-    {
-        _mustPatrol = false;
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-        _walkSpeed = _walkSpeed * -1;
-        _mustPatrol = true;
     }
 
     public void TakeDamage(int _damageRecived)
@@ -50,6 +41,39 @@ public class BasicEnemy : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public IEnumerator Freeze()
+    {
+        _walkSpeed = 0;
+        _enemyAnimator.gameObject.GetComponent<Animator>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        yield return new WaitForSeconds(3.0f);
+        _walkSpeed = 10;
+        _enemyAnimator.gameObject.GetComponent<Animator>().enabled = true;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        StartCoroutine(Burn());
+    }
+    public IEnumerator Burn()
+    {
+        int burnDamage = -1;
+        yield return new WaitForSeconds(.2f);
+        _enemyHealth = _enemyHealth + burnDamage;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(.2f);
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        yield return new WaitForSeconds(.2f);
+        _enemyHealth = _enemyHealth + burnDamage;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(.2f);
+        _enemyHealth = _enemyHealth + burnDamage;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(.2f);
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     private void Die()
