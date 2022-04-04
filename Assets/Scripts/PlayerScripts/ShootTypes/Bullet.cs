@@ -16,10 +16,9 @@ public class Bullet : MonoBehaviour
         BasicEnemy _basicEnemy = hitInfo.GetComponent<BasicEnemy>();
         if (_basicEnemy != null)
         {
-            _basicEnemy.TakeDamage(_damageAmount);   
+            _basicEnemy.TakeDamage(_damageAmount);
         }
         Destroy(gameObject);
     }
-
 }
 

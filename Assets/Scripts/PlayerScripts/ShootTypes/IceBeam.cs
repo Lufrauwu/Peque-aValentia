@@ -18,12 +18,7 @@ public class IceBeam : MonoBehaviour
         _inputShoot = _playerController.Land.Fire;
         _inputShoot.Enable();
         _playerController.Land.Fire.performed += _ => StartCoroutine(Shoot());
-    }
-
-    private void Update()
-    {
-        
-    }
+    }                           
 
     IEnumerator Shoot()
     {
@@ -59,8 +54,4 @@ public class IceBeam : MonoBehaviour
         _shootEnable = !_shootEnable;
         Debug.Log("IceBeam activado: " + _shootEnable);
     }
-
-
-
 }
-
