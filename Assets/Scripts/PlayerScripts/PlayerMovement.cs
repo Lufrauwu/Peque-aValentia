@@ -1,18 +1,19 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _jumpHeight = default;
     [SerializeField] private float _walkSpeed = default;
-    [SerializeField] private float _checkRadius = default; 
+    [SerializeField] private float _checkRadius = default;
     [SerializeField] private float _jumpTime = default;
-    [SerializeField] Transform _feetTransform = default;
-    [SerializeField] LayerMask _groundLayer = default;
+    [SerializeField] private Transform _feetTransform = default;
+    [SerializeField] private LayerMask _groundLayer = default;
+    [SerializeField] private Animator _playerAnimator = default;
     Rigidbody2D _rigidBody2D = default;
     private float _jumpCounter = default;
     private float _horizontalMove = default;
-    private bool _isGrounded = default;
+    private bool _isGrounded = true;
     private bool _isJumping = default;
     private bool _isDeath = false;
     private bool _facingRight = true;
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         _inputMove.Enable();
         _inputJump = _playerController.Land.Jump;
         _inputJump.Enable();
+
         _inputJump.started += Jump;
         _inputJump.canceled += EndJump;
     }
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        _playerAnimator = GetComponent<Animator>();
         _rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -54,7 +57,16 @@ public class PlayerMovement : MonoBehaviour
         Vector3 currentPosition = transform.position;
         currentPosition.x += _horizontalMove * _walkSpeed * Time.deltaTime;
         transform.position = currentPosition;
-        if (_horizontalMove < 0 &&_facingRight)
+        _playerAnimator.SetFloat("Speed", _horizontalMove);
+        if (_horizontalMove > 0 && _facingRight)
+        {
+            _playerAnimator.SetBool("Right", true);
+        }
+        else if (_horizontalMove < 0 && !_facingRight)
+        {
+            _playerAnimator.SetBool("Right", false);
+        }
+        if (_horizontalMove < 0 && _facingRight)
         {
             Flip();
         }
@@ -62,13 +74,16 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+        _playerAnimator.SetBool("IsGrounded", _isGrounded);
+        _playerAnimator.SetBool("IsJumping", !_isGrounded);
+        _isGrounded = Physics2D.OverlapCircle(_feetTransform.position, _checkRadius, _groundLayer);
     }
 
     private void Jump(InputAction.CallbackContext context)
     {
-        _isGrounded = Physics2D.OverlapCircle(_feetTransform.position, _checkRadius, _groundLayer);
         if (_isGrounded == true)
         {
+
             _isJumping = true;
             _jumpCounter = _jumpTime;
             _rigidBody2D.velocity = Vector2.up * _jumpHeight;
@@ -104,4 +119,5 @@ public class PlayerMovement : MonoBehaviour
         _facingRight = !_facingRight;
         transform.Rotate(0f, 180f, 0f);
     }
+
 }
