@@ -21,4 +21,9 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void NextScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 }

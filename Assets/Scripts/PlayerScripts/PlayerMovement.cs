@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
         _inputMove.Enable();
         _inputJump = _playerController.Land.Jump;
         _inputJump.Enable();
-
         _inputJump.started += Jump;
         _inputJump.canceled += EndJump;
     }
@@ -50,6 +49,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (_isDeath)
+        {
+            return;
+        }
+        if (PauseManager._paused)
         {
             return;
         }
@@ -119,5 +122,4 @@ public class PlayerMovement : MonoBehaviour
         _facingRight = !_facingRight;
         transform.Rotate(0f, 180f, 0f);
     }
-
 }
