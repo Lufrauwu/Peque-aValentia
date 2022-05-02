@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "ChangeCharacter",
+                    "type": "Button",
+                    "id": "a3e0d637-e1fd-43cf-ad9d-2b7df312db2c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -228,6 +236,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Heal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "82c545ea-4ade-498e-92f1-7e84041c4d59",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "ChangeCharacter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

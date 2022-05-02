@@ -65,6 +65,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""ChangeCharacter"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3e0d637-e1fd-43cf-ad9d-2b7df312db2c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -241,6 +249,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Heal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82c545ea-4ade-498e-92f1-7e84041c4d59"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""ChangeCharacter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -786,6 +805,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Land_Fire = m_Land.FindAction("Fire", throwIfNotFound: true);
         m_Land_SwitchMagic = m_Land.FindAction("SwitchMagic", throwIfNotFound: true);
         m_Land_Heal = m_Land.FindAction("Heal", throwIfNotFound: true);
+        m_Land_ChangeCharacter = m_Land.FindAction("ChangeCharacter", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -853,6 +873,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private readonly InputAction m_Land_Fire;
     private readonly InputAction m_Land_SwitchMagic;
     private readonly InputAction m_Land_Heal;
+    private readonly InputAction m_Land_ChangeCharacter;
     public struct LandActions
     {
         private @PlayerController m_Wrapper;
@@ -863,6 +884,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         public InputAction @Fire => m_Wrapper.m_Land_Fire;
         public InputAction @SwitchMagic => m_Wrapper.m_Land_SwitchMagic;
         public InputAction @Heal => m_Wrapper.m_Land_Heal;
+        public InputAction @ChangeCharacter => m_Wrapper.m_Land_ChangeCharacter;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -890,6 +912,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Heal.started -= m_Wrapper.m_LandActionsCallbackInterface.OnHeal;
                 @Heal.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnHeal;
                 @Heal.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnHeal;
+                @ChangeCharacter.started -= m_Wrapper.m_LandActionsCallbackInterface.OnChangeCharacter;
+                @ChangeCharacter.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnChangeCharacter;
+                @ChangeCharacter.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnChangeCharacter;
             }
             m_Wrapper.m_LandActionsCallbackInterface = instance;
             if (instance != null)
@@ -912,6 +937,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Heal.started += instance.OnHeal;
                 @Heal.performed += instance.OnHeal;
                 @Heal.canceled += instance.OnHeal;
+                @ChangeCharacter.started += instance.OnChangeCharacter;
+                @ChangeCharacter.performed += instance.OnChangeCharacter;
+                @ChangeCharacter.canceled += instance.OnChangeCharacter;
             }
         }
     }
@@ -1047,6 +1075,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnSwitchMagic(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
+        void OnChangeCharacter(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
