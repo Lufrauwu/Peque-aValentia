@@ -57,4 +57,14 @@ public class HealthController : MonoBehaviour
         _playerHealth -= _touchDamage;
         UpdateHealth();
     }
+
+    public void Heal()
+    {
+        _playerHealth += _touchDamage;
+        if (_playerHealth > _healthNumber)
+        {
+            _playerHealth = _healthNumber;
+        }
+        UpdateHealth();
+    }
 }

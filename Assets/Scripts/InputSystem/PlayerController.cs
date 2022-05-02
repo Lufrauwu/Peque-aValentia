@@ -57,6 +57,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Heal"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a8f42f3-7435-4ae3-a3c1-ad937606d291"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -211,6 +219,28 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""SwitchMagic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a0dc9c8-0a99-4c5e-945a-9dc71f6abcad"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Heal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fe6c432-5652-42d6-93a7-228564c7fbfb"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Heal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -755,6 +785,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Land_ChangeDimention = m_Land.FindAction("ChangeDimention", throwIfNotFound: true);
         m_Land_Fire = m_Land.FindAction("Fire", throwIfNotFound: true);
         m_Land_SwitchMagic = m_Land.FindAction("SwitchMagic", throwIfNotFound: true);
+        m_Land_Heal = m_Land.FindAction("Heal", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -821,6 +852,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private readonly InputAction m_Land_ChangeDimention;
     private readonly InputAction m_Land_Fire;
     private readonly InputAction m_Land_SwitchMagic;
+    private readonly InputAction m_Land_Heal;
     public struct LandActions
     {
         private @PlayerController m_Wrapper;
@@ -830,6 +862,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         public InputAction @ChangeDimention => m_Wrapper.m_Land_ChangeDimention;
         public InputAction @Fire => m_Wrapper.m_Land_Fire;
         public InputAction @SwitchMagic => m_Wrapper.m_Land_SwitchMagic;
+        public InputAction @Heal => m_Wrapper.m_Land_Heal;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -854,6 +887,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @SwitchMagic.started -= m_Wrapper.m_LandActionsCallbackInterface.OnSwitchMagic;
                 @SwitchMagic.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnSwitchMagic;
                 @SwitchMagic.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnSwitchMagic;
+                @Heal.started -= m_Wrapper.m_LandActionsCallbackInterface.OnHeal;
+                @Heal.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnHeal;
+                @Heal.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnHeal;
             }
             m_Wrapper.m_LandActionsCallbackInterface = instance;
             if (instance != null)
@@ -873,6 +909,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @SwitchMagic.started += instance.OnSwitchMagic;
                 @SwitchMagic.performed += instance.OnSwitchMagic;
                 @SwitchMagic.canceled += instance.OnSwitchMagic;
+                @Heal.started += instance.OnHeal;
+                @Heal.performed += instance.OnHeal;
+                @Heal.canceled += instance.OnHeal;
             }
         }
     }
@@ -1007,6 +1046,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         void OnChangeDimention(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnSwitchMagic(InputAction.CallbackContext context);
+        void OnHeal(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
