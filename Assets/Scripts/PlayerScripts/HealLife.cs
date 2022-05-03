@@ -14,7 +14,7 @@ public class HealLife : MonoBehaviour
         _inputHeal.Enable();
         _inputHeal.started += _ => Healing();
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         _playerController.Disable();
         _inputHeal.Disable();

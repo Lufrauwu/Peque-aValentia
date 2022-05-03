@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class ChangeCharacter : MonoBehaviour
 {
-    [SerializeField] private GameObject _currentPlayer = default;
+    [SerializeField] private GameObject _buttonPlayer = default;
+    [SerializeField] private GameObject _cedarPlayer = default;
+
     private PlayerController _playerController = default;
     private InputAction _inputChange = default;
     void Start()
@@ -15,7 +17,7 @@ public class ChangeCharacter : MonoBehaviour
         _inputChange.started += _ => PlayerChange();
     }
     
-    private void OnDisable()
+    private void OnDestroy()
     {
         _playerController.Disable();
         _inputChange.Disable();
@@ -23,6 +25,17 @@ public class ChangeCharacter : MonoBehaviour
 
     private void PlayerChange()
     {
-        _currentPlayer.SetActive(!_currentPlayer.activeSelf);
+        if (_buttonPlayer.activeSelf)
+        {
+            _buttonPlayer.SetActive(false);
+            _cedarPlayer.SetActive(true);
+            _cedarPlayer.transform.position = _buttonPlayer.transform.position;
+        }
+        else
+        {
+            _cedarPlayer.SetActive(false);
+            _buttonPlayer.SetActive(true);
+            _buttonPlayer.transform.position = _cedarPlayer.transform.position;
+        }
     }
 }

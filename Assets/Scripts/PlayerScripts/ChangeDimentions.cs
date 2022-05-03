@@ -16,7 +16,7 @@ public class ChangeDimentions : MonoBehaviour
         _inputDimention.started += _ => DimentionalChange();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _playerController.Disable();
         _inputDimention.Disable();

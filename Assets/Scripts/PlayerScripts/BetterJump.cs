@@ -20,7 +20,7 @@ public class BetterJump : MonoBehaviour
         _inputJump.canceled += context => _isPressing = false;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _inputJump.Disable();
     }

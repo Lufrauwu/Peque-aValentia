@@ -17,7 +17,7 @@ public class ChangeBetweenElements : MonoBehaviour
         _inputSwitch.performed += _ => SwitchMagic();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _playerController.Disable();
         _inputSwitch.Disable();

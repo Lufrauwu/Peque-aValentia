@@ -18,7 +18,7 @@ public class FireBullet : MonoBehaviour
         _playerController.Land.Fire.performed += _ => Shoot();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _playerController.Disable();
         _inputShoot.Disable();
