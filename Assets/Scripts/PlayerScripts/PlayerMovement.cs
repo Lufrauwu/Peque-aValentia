@@ -82,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
         if (_horizontalMove == 0)
         {
             _playerAnimator.SetBool("IsMoving", false);
-            _playerAnimator.
         }
         _playerAnimator.SetBool("IsGrounded", _isGrounded);
         _playerAnimator.SetBool("IsJumping", !_isGrounded);

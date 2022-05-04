@@ -5,6 +5,8 @@ public class ChangeCharacter : MonoBehaviour
 {
     [SerializeField] private GameObject _buttonPlayer = default;
     [SerializeField] private GameObject _cedarPlayer = default;
+    [SerializeField] private GameObject _buttonCamera = default;
+    [SerializeField] private GameObject _ceddarCamera = default;
 
     private PlayerController _playerController = default;
     private InputAction _inputChange = default;
@@ -27,13 +29,17 @@ public class ChangeCharacter : MonoBehaviour
     {
         if (_buttonPlayer.activeSelf)
         {
+            _buttonCamera.SetActive(false);
             _buttonPlayer.SetActive(false);
+            _ceddarCamera.SetActive(true);
             _cedarPlayer.SetActive(true);
             _cedarPlayer.transform.position = _buttonPlayer.transform.position;
         }
         else
         {
+            _ceddarCamera.SetActive(false);
             _cedarPlayer.SetActive(false);
+            _buttonCamera.SetActive(true);
             _buttonPlayer.SetActive(true);
             _buttonPlayer.transform.position = _cedarPlayer.transform.position;
         }
