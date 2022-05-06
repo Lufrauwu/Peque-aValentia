@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
@@ -7,9 +8,17 @@ public class ChangeCharacter : MonoBehaviour
     [SerializeField] private GameObject _cedarPlayer = default;
     [SerializeField] private GameObject _buttonCamera = default;
     [SerializeField] private GameObject _ceddarCamera = default;
-
+    private IceBeam iceBeam = default;
+    private FireBullet fireBullet = default;
     private PlayerController _playerController = default;
     private InputAction _inputChange = default;
+
+    private void Awake()
+    {
+        iceBeam = _cedarPlayer.GetComponent<IceBeam>();
+        fireBullet = _cedarPlayer.GetComponent<FireBullet>();
+    }
+
     void Start()
     {
         _playerController = new PlayerController();
@@ -33,12 +42,16 @@ public class ChangeCharacter : MonoBehaviour
             _buttonPlayer.SetActive(false);
             _ceddarCamera.SetActive(true);
             _cedarPlayer.SetActive(true);
+            fireBullet.enabled = !fireBullet.enabled;
+            iceBeam.enabled = !iceBeam.enabled;
             _cedarPlayer.transform.position = _buttonPlayer.transform.position;
         }
         else
         {
             _ceddarCamera.SetActive(false);
             _cedarPlayer.SetActive(false);
+            fireBullet.enabled = !fireBullet.enabled;
+            iceBeam.enabled = !iceBeam.enabled;
             _buttonCamera.SetActive(true);
             _buttonPlayer.SetActive(true);
             _buttonPlayer.transform.position = _cedarPlayer.transform.position;

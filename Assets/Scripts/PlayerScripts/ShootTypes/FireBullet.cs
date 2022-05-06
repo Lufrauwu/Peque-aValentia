@@ -9,7 +9,7 @@ public class FireBullet : MonoBehaviour
     private InputAction _inputShoot = default;
     private bool _shootEnable = true;
 
-    private void Awake()
+    private void Start()
     {
         _playerController = new PlayerController();
         _playerController.Enable();
