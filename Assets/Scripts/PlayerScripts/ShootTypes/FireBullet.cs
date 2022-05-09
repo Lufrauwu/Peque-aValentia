@@ -17,6 +17,17 @@ public class FireBullet : MonoBehaviour
         _inputShoot.Enable();
         _playerController.Land.Fire.performed += _ => Shoot();
     }
+    
+    public void Activate()
+    {
+        _inputShoot.Enable();
+    }
+
+    public void Deactivate()
+    {
+        _inputShoot.Disable();
+
+    }
 
     private void OnDestroy()
     {

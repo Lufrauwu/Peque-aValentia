@@ -42,7 +42,7 @@ public class ChangeCharacter : MonoBehaviour
             _buttonPlayer.SetActive(false);
             _ceddarCamera.SetActive(true);
             _cedarPlayer.SetActive(true);
-            fireBullet.enabled = !fireBullet.enabled;
+            fireBullet.Activate();
             iceBeam.enabled = !iceBeam.enabled;
             _cedarPlayer.transform.position = _buttonPlayer.transform.position;
         }
@@ -50,7 +50,7 @@ public class ChangeCharacter : MonoBehaviour
         {
             _ceddarCamera.SetActive(false);
             _cedarPlayer.SetActive(false);
-            fireBullet.enabled = !fireBullet.enabled;
+            fireBullet.Deactivate();
             iceBeam.enabled = !iceBeam.enabled;
             _buttonCamera.SetActive(true);
             _buttonPlayer.SetActive(true);

@@ -48,7 +48,7 @@ public class Portal : MonoBehaviour
             _normalDimention.SetActive(false);
             _darkDimention.SetActive(true);
         }
-        else
+        else if(_canInteract && _darkDimention.activeSelf)
         {
             _darkDimention.SetActive(false);
             _normalDimention.SetActive(true);
