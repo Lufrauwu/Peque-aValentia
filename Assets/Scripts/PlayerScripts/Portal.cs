@@ -28,7 +28,6 @@ public class Portal : MonoBehaviour
         {
             _Interacttext.gameObject.SetActive(true);
             _canInteract = true;
-            Debug.Log("Entró");
         }
     }
 
