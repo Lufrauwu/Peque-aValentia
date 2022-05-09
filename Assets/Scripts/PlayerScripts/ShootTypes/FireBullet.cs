@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,13 +43,12 @@ public class FireBullet : MonoBehaviour
             return;
         }
         Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
-    }
+    }   
 
     public void ToggleActivation()
     {
         _shootEnable = !_shootEnable;
-        Debug.Log("FireBullet activado: " + _shootEnable);
-        
+        Debug.Log("FireBullet activado: " + _shootEnable);      
     }
 
 }

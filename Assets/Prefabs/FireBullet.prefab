@@ -121,6 +121,7 @@ MonoBehaviour:
   _bulletSpeed: 60
   _damageAmount: 4
   _rigidBody2D: {fileID: 5472259736894609589}
+  _lifeTime: 4
 --- !u!58 &3194752077440163030
 CircleCollider2D:
   m_ObjectHideFlags: 0

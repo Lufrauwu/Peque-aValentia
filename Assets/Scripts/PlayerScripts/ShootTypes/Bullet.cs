@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -5,10 +6,16 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _bulletSpeed = default;
     [SerializeField] private int _damageAmount = default;
     [SerializeField] private Rigidbody2D _rigidBody2D = default;
+    [SerializeField] private float _lifeTime = default;
 
     void Start()
     {
         _rigidBody2D.velocity = transform.right * _bulletSpeed;
+    }
+
+    private void Update()
+    {
+        Destroy(gameObject, _lifeTime);
     }
 
     private void OnTriggerEnter2D(Collider2D hitInfo)
