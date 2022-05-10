@@ -6,6 +6,7 @@ public class HealLife : MonoBehaviour
     private HealthController healthController = default;
     private PlayerController _playerController = default;
     private InputAction _inputHeal = default;
+
     void Start()
     {
         _playerController = new PlayerController();
@@ -20,13 +21,9 @@ public class HealLife : MonoBehaviour
         _inputHeal.Disable();
     }
 
-    void Update()
-    {
-        
-    }
     private void Healing()
     {
         healthController.Heal();
-        Debug.Log("HOLI");
     }
 }
+
