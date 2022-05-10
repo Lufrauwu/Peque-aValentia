@@ -46,6 +46,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
     
     public IEnumerator Freeze()
     {
+        Debug.Log("FREEZE");
         _speedEnemy = 0;
        // _enemyAnimator.gameObject.GetComponent<Animator>().enabled = false;
         gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
