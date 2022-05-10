@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,7 @@ public class FireBullet : MonoBehaviour
     private InputAction _inputShoot = default;
     private bool _shootEnable = true;
 
-    private void Awake()
+    private void Start()
     {
         _playerController = new PlayerController();
         _playerController.Enable();
@@ -17,8 +18,19 @@ public class FireBullet : MonoBehaviour
         _inputShoot.Enable();
         _playerController.Land.Fire.performed += _ => Shoot();
     }
+    
+    public void Activate()
+    {
+        _inputShoot.Enable();
+    }
 
-    private void OnDisable()
+    public void Deactivate()
+    {
+        _inputShoot.Disable();
+
+    }
+
+    private void OnDestroy()
     {
         _playerController.Disable();
         _inputShoot.Disable();
@@ -31,13 +43,12 @@ public class FireBullet : MonoBehaviour
             return;
         }
         Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
-    }
+    }   
 
     public void ToggleActivation()
     {
         _shootEnable = !_shootEnable;
-        Debug.Log("FireBullet activado: " + _shootEnable);
-        
+        Debug.Log("FireBullet activado: " + _shootEnable);      
     }
 
 }
