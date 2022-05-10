@@ -29,11 +29,18 @@ public class IceBeam : MonoBehaviour
         RaycastHit2D _hitInfo = Physics2D.Raycast(_firePoint.position, _firePoint.right);
         if (_hitInfo)
         {
-            BasicEnemy _enemy = _hitInfo.transform.GetComponent<BasicEnemy>();
-            if (_enemy != null)
+            BasicEnemy _basicEnemy = _hitInfo.transform.GetComponent<BasicEnemy>();
+            if (_basicEnemy != null)
             {
-                _enemy.TakeDamage(_damage);
-                StartCoroutine(_enemy.Freeze());
+                _basicEnemy.TakeDamage(_damage);
+                StartCoroutine(_basicEnemy.Freeze());
+
+            }
+            ChaseAndReturnEnemy _chaseEnemy = _hitInfo.transform.GetComponent<ChaseAndReturnEnemy>();
+            if (_chaseEnemy != null)
+            {
+                _chaseEnemy.TakeDamage(_damage);
+                StartCoroutine(_chaseEnemy.Freeze());
 
             }
             _lineRenderer.SetPosition(0, _firePoint.position);

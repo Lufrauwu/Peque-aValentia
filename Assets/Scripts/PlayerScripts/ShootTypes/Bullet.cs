@@ -25,6 +25,11 @@ public class Bullet : MonoBehaviour
         {
             _basicEnemy.TakeDamage(_damageAmount);
         }
+        ChaseAndReturnEnemy _chaseEnemy = hitInfo.GetComponent<ChaseAndReturnEnemy>();
+        if (_chaseEnemy != null)
+        {
+            _chaseEnemy.TakeDamage(_damageAmount);
+        }
         Destroy(gameObject);
     }
 }
