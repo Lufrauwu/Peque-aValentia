@@ -11,7 +11,6 @@ public class Portal : MonoBehaviour
     private bool _canInteract = default;
     private PlayerController _playerController = default;
     private InputAction _inputDimention = default;
-    
 
     private void Start()
     {

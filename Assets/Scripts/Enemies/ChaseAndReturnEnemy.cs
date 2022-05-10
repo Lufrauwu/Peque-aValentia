@@ -9,6 +9,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
     [SerializeField] private float _enemyHealth = default;
     private Transform _playerPosition = default;
     private Vector2 _currentPosition = default;
+
     void Start()
     {
         _playerPosition = _player.GetComponent<Transform>();
@@ -52,7 +53,6 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         _speedEnemy = 10;
        // _enemyAnimator.gameObject.GetComponent<Animator>().enabled = true;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
