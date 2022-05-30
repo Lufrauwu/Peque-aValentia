@@ -10,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform _feetTransform = default;
     [SerializeField] private LayerMask _groundLayer = default;
     [SerializeField] private Animator _playerAnimator = default;
+    [SerializeField] private GameObject _spikes = default;
     Rigidbody2D _rigidBody2D = default;
+    private Vector3 _respawnPoint = default;
     private float _jumpCounter = default;
     private float _horizontalMove = default;
     private bool _isGrounded = true;
@@ -44,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerAnimator = GetComponent<Animator>();
         _rigidBody2D = GetComponent<Rigidbody2D>();
+        _respawnPoint = transform.position;
     }
 
     void Update()
@@ -64,12 +67,12 @@ public class PlayerMovement : MonoBehaviour
         if (_horizontalMove > 0 && _facingRight)
         {
             _playerAnimator.SetBool("Right", true);
-           _playerAnimator.SetBool("IsMoving", true);
+          // _playerAnimator.SetBool("IsMoving", true);
         }
         else if (_horizontalMove < 0 && !_facingRight)
         {
             _playerAnimator.SetBool("Right", false);
-            _playerAnimator.SetBool("IsMoving", true);
+           // _playerAnimator.SetBool("IsMoving", true);
         }
         if (_horizontalMove < 0 && _facingRight)
         {
@@ -81,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (_horizontalMove == 0)
         {
-            _playerAnimator.SetBool("IsMoving", false);
+            //_playerAnimator.SetBool("IsMoving", false);
         }
         _playerAnimator.SetBool("IsGrounded", _isGrounded);
         _playerAnimator.SetBool("IsJumping", !_isGrounded);
@@ -127,5 +130,18 @@ public class PlayerMovement : MonoBehaviour
     {
         _facingRight = !_facingRight;
         transform.Rotate(0f, 180f, 0f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Spikes"))
+        {
+            transform.position = _respawnPoint;
+        }
+        else if (collision.CompareTag("Checkpoint"))
+        {
+            _respawnPoint = transform.position;
+            Debug.Log("CHECKPOINT");
+        }
     }
 }
