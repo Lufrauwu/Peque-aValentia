@@ -10,7 +10,7 @@ public class ChangeBetweenElements : MonoBehaviour
 
     private void Awake()
     {
-        _playerController = new PlayerController();
+        /*_playerController = new PlayerController();
         _playerController.Enable();
         _inputSwitch = _playerController.Land.SwitchMagic;
         _inputSwitch.Enable();
@@ -34,6 +34,6 @@ public class ChangeBetweenElements : MonoBehaviour
     {
         _iceBeam.ToggleActivation();
         _fireBullet.ToggleActivation();
-    }
+    }*/
 
 }

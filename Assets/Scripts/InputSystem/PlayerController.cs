@@ -56,7 +56,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""id"": ""d428877b-3d4b-498a-a8a3-2c5802318d42"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Heal"",
@@ -73,6 +73,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""064706a3-0930-45ca-bce7-de2098af42e3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -260,6 +268,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
                     ""action"": ""ChangeCharacter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80a445f3-63db-4289-a9e1-e64b147616da"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -806,6 +825,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         m_Land_SwitchMagic = m_Land.FindAction("SwitchMagic", throwIfNotFound: true);
         m_Land_Heal = m_Land.FindAction("Heal", throwIfNotFound: true);
         m_Land_ChangeCharacter = m_Land.FindAction("ChangeCharacter", throwIfNotFound: true);
+        m_Land_MousePosition = m_Land.FindAction("MousePosition", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -874,6 +894,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private readonly InputAction m_Land_SwitchMagic;
     private readonly InputAction m_Land_Heal;
     private readonly InputAction m_Land_ChangeCharacter;
+    private readonly InputAction m_Land_MousePosition;
     public struct LandActions
     {
         private @PlayerController m_Wrapper;
@@ -885,6 +906,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         public InputAction @SwitchMagic => m_Wrapper.m_Land_SwitchMagic;
         public InputAction @Heal => m_Wrapper.m_Land_Heal;
         public InputAction @ChangeCharacter => m_Wrapper.m_Land_ChangeCharacter;
+        public InputAction @MousePosition => m_Wrapper.m_Land_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -915,6 +937,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @ChangeCharacter.started -= m_Wrapper.m_LandActionsCallbackInterface.OnChangeCharacter;
                 @ChangeCharacter.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnChangeCharacter;
                 @ChangeCharacter.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnChangeCharacter;
+                @MousePosition.started -= m_Wrapper.m_LandActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_LandActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_LandActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_LandActionsCallbackInterface = instance;
             if (instance != null)
@@ -940,6 +965,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @ChangeCharacter.started += instance.OnChangeCharacter;
                 @ChangeCharacter.performed += instance.OnChangeCharacter;
                 @ChangeCharacter.canceled += instance.OnChangeCharacter;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -1076,6 +1104,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
         void OnSwitchMagic(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
         void OnChangeCharacter(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
