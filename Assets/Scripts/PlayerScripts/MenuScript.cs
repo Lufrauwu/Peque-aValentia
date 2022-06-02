@@ -17,6 +17,8 @@ public class MenuScript : MonoBehaviour
     {
         _inputSwitch = _playerController.Land.SwitchMagic;
         _inputSwitch.Enable();
+        _inputSwitch.started += ActivateMenu;
+        _inputSwitch.canceled += DeactivateMenu;
     }
 
     void Update()
@@ -49,6 +51,17 @@ public class MenuScript : MonoBehaviour
             _iceSpace.transform.localScale = Vector3.one;
             _lastSelected = PowerType.Fire;
         }
+    }
+
+    private void ActivateMenu(InputAction.CallbackContext context)
+    {
+        _pieMenu.SetActive(true);
+        ShowMenu();
+    }
+
+    private void DeactivateMenu(InputAction.CallbackContext context)
+    {
+        _pieMenu.SetActive(false);
     }
 }
 
