@@ -44,16 +44,16 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         }
     }
     
-    public IEnumerator Freeze()
+    public IEnumerator FreezeCR()
     {
         Debug.Log("FREEZE");
         _speedEnemy = 0;
        // _enemyAnimator.gameObject.GetComponent<Animator>().enabled = false;
         gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
         yield return new WaitForSeconds(3.0f);
-        _speedEnemy = 10;
+        _speedEnemy = 24.4f;
        // _enemyAnimator.gameObject.GetComponent<Animator>().enabled = true;
-        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -68,7 +68,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         _enemyHealth = _enemyHealth + burnDamage;
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         yield return new WaitForSeconds(.2f);
-        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         yield return new WaitForSeconds(.2f);
         _enemyHealth = _enemyHealth + burnDamage;
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
@@ -76,7 +76,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         _enemyHealth = _enemyHealth + burnDamage;
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         yield return new WaitForSeconds(.2f);
-        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
     }
     
     private void Die()

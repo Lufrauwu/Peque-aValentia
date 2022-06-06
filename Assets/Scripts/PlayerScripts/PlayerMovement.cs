@@ -117,8 +117,8 @@ public class PlayerMovement : MonoBehaviour
 
             _isJumping = true;
             _jumpCounter = _jumpTime;
-            _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
-            //_rigidBody2D.velocity = Vector2.up * _jumpHeight;
+           // _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
+            _rigidBody2D.velocity = Vector2.up * _jumpHeight;
             //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime , ForceMode2D.Impulse);
         }
         if (_horizontalMove > 0 && _facingRight)
@@ -136,8 +136,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_jumpCounter > 0)
             {
-                _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
-               // _rigidBody2D.velocity = Vector2.up * _jumpHeight;
+                //_rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
+                _rigidBody2D.velocity = Vector2.up * _jumpHeight;
                //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime, ForceMode2D.Impulse);
                 _jumpCounter -= Time.deltaTime;
             }

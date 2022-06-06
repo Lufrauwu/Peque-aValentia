@@ -42,27 +42,13 @@ public class MenuScript : MonoBehaviour
         //Debug.Log(_mousePosition.x);
         if (_menuIsActive)
         {
-            ShowMenu();
+            CheckMenuSelection();
         }
 
     }
     
-    private void ShowMenu()
+    private void CheckMenuSelection()
     {
-        /* if (_playerController.Land.SwitchMagic.IsPressed())
-         {
-
-         }*/
-        if (_isIce)
-        {
-            _iceBeam.ToggleActivation();
-        }
-        else
-        {
-            _fireBullet.ToggleActivation();
-        }
-           
-        
         if (_mousePosition.x < _halfWidth)
         {
             _iceSpace.transform.localScale = Vector3.one * 1.1f;
@@ -86,14 +72,23 @@ public class MenuScript : MonoBehaviour
     {
         _menuIsActive = true;
         _pieMenu.SetActive(true);
-
-
     }
 
     private void DeactivateMenu(InputAction.CallbackContext context)
     {
         _menuIsActive = false;
         _pieMenu.SetActive(false);
+
+        if (_isIce)
+        {
+            _iceBeam.Activate();
+            _fireBullet.Deactivate();
+        }
+        else
+        {
+            _iceBeam.Deactivate();
+            _fireBullet.Activate();
+        }
     }
 
 }

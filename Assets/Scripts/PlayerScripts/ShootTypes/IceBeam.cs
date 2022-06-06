@@ -9,7 +9,6 @@ public class IceBeam : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer = default;
     private PlayerController _playerController = default;
     private InputAction _inputShoot = default;
-    private bool _shootEnable = false;
 
     private void Start()
     {
@@ -18,31 +17,35 @@ public class IceBeam : MonoBehaviour
         _inputShoot = _playerController.Land.Fire;
         _inputShoot.Enable();
         _playerController.Land.Fire.performed += _ => StartCoroutine(Shoot());
+
+        Deactivate();
     }                           
 
     IEnumerator Shoot()
     {
-        if (!_shootEnable)
-        {
-            yield break;
-        }
         RaycastHit2D _hitInfo = Physics2D.Raycast(_firePoint.position, _firePoint.right);
         if (_hitInfo)
         {
-            BasicEnemy _basicEnemy = _hitInfo.transform.GetComponent<BasicEnemy>();
-            if (_basicEnemy != null)
-            {
-                _basicEnemy.TakeDamage(_damage);
-                StartCoroutine(_basicEnemy.Freeze());
-
-            }
+            Debug.Log(_hitInfo);
             ChaseAndReturnEnemy _chaseEnemy = _hitInfo.transform.GetComponent<ChaseAndReturnEnemy>();
             if (_chaseEnemy != null)
             {
                 _chaseEnemy.TakeDamage(_damage);
-                StartCoroutine(_chaseEnemy.Freeze());
+                StartCoroutine(_chaseEnemy.FreezeCR());
+                Debug.Log("HITED");
 
             }
+
+            BasicEnemy _basicEnemy = _hitInfo.transform.GetComponent<BasicEnemy>();
+            if (_basicEnemy != null)
+            {
+                _basicEnemy.TakeDamage(_damage);
+                StartCoroutine(_basicEnemy.FreezeBE());
+                
+
+            }
+
+
             _lineRenderer.SetPosition(0, _firePoint.position);
             _lineRenderer.SetPosition(1, _hitInfo.point);
         }
@@ -56,9 +59,13 @@ public class IceBeam : MonoBehaviour
         _lineRenderer.enabled = false;
     }
 
-    public void ToggleActivation()
+    public void Activate()
     {
-        _shootEnable = !_shootEnable;
-        Debug.Log("IceBeam activado: " + _shootEnable);
+        _inputShoot.Enable();
+    }
+
+    public void Deactivate()
+    {
+        _inputShoot.Disable();
     }
 }

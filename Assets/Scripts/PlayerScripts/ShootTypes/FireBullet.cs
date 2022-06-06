@@ -8,7 +8,6 @@ public class FireBullet : MonoBehaviour
     [SerializeField] private GameObject _bulletPrefab = default;
     private PlayerController _playerController = default;
     private InputAction _inputShoot = default;
-    private bool _shootEnable = true;
 
     private void Start()
     {
@@ -27,7 +26,6 @@ public class FireBullet : MonoBehaviour
     public void Deactivate()
     {
         _inputShoot.Disable();
-
     }
 
     private void OnDestroy()
@@ -38,17 +36,6 @@ public class FireBullet : MonoBehaviour
 
     private void Shoot()
     {
-        if (!_shootEnable)
-        {
-            return;
-        }
         Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
     }   
-
-    public void ToggleActivation()
-    {
-        _shootEnable = !_shootEnable;
-        Debug.Log("FireBullet activado: " + _shootEnable);      
-    }
-
 }
