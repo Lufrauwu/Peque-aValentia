@@ -8,9 +8,9 @@ public class ChangeBetweenElements : MonoBehaviour
     private FireBullet _fireBullet = default;
     private InputAction _inputSwitch = default;
 
-    private void Awake()
-    {
-        _playerController = new PlayerController();
+   // private void Awake()
+   // {
+        /*_playerController = new PlayerController();
         _playerController.Enable();
         _inputSwitch = _playerController.Land.SwitchMagic;
         _inputSwitch.Enable();
@@ -34,6 +34,6 @@ public class ChangeBetweenElements : MonoBehaviour
     {
         _iceBeam.ToggleActivation();
         _fireBullet.ToggleActivation();
-    }
+    }*/
 
     }
