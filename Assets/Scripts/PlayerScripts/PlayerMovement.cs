@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer = default;
     [SerializeField] private Animator _playerAnimator = default;
     [SerializeField] private GameObject _spikes = default;
+    [SerializeField] private float _fallMultiplier = default;
     Rigidbody2D _rigidBody2D = default;
     private Vector3 _respawnPoint = default;
     private float _jumpCounter = default;
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         currentPosition.x += _horizontalMove * _walkSpeed * Time.deltaTime;
         transform.position = currentPosition;
         _playerAnimator.SetFloat("Speed", _horizontalMove);
-        if (_horizontalMove > 0 && _facingRight)
+        /*if (_horizontalMove > 0 && _facingRight)
         {
             _playerAnimator.SetBool("Right", true);
           // _playerAnimator.SetBool("IsMoving", true);
@@ -73,6 +74,10 @@ public class PlayerMovement : MonoBehaviour
         {
             _playerAnimator.SetBool("Right", false);
            // _playerAnimator.SetBool("IsMoving", true);
+        }*/
+        if (_isGrounded)
+        {
+            CheckDirection();
         }
         if (_horizontalMove < 0 && _facingRight)
         {
@@ -91,6 +96,20 @@ public class PlayerMovement : MonoBehaviour
         _isGrounded = Physics2D.OverlapCircle(_feetTransform.position, _checkRadius, _groundLayer);
     }
 
+    private void CheckDirection()
+    {
+        if (_horizontalMove > 0 && _facingRight)
+        {
+            _playerAnimator.SetBool("Right", true);
+            // _playerAnimator.SetBool("IsMoving", true);
+        }
+        else if (_horizontalMove < 0 && !_facingRight)
+        {
+            _playerAnimator.SetBool("Right", false);
+            // _playerAnimator.SetBool("IsMoving", true);
+        }
+    }
+    
     private void Jump(InputAction.CallbackContext context)
     {
         if (_isGrounded == true)
@@ -98,14 +117,28 @@ public class PlayerMovement : MonoBehaviour
 
             _isJumping = true;
             _jumpCounter = _jumpTime;
-            _rigidBody2D.velocity = Vector2.up * _jumpHeight;
+            _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
+            //_rigidBody2D.velocity = Vector2.up * _jumpHeight;
+            //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime , ForceMode2D.Impulse);
+        }
+        if (_horizontalMove > 0 && _facingRight)
+        {
+            _playerAnimator.SetBool("Right", true);
+            // _playerAnimator.SetBool("IsMoving", true);
+        }
+        else if (_horizontalMove < 0 && !_facingRight)
+        {
+            _playerAnimator.SetBool("Right", false);
+            // _playerAnimator.SetBool("IsMoving", true);
         }
 
         if (_isJumping == true)
         {
             if (_jumpCounter > 0)
             {
-                _rigidBody2D.velocity = Vector2.up * _jumpHeight;
+                _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
+               // _rigidBody2D.velocity = Vector2.up * _jumpHeight;
+               //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime, ForceMode2D.Impulse);
                 _jumpCounter -= Time.deltaTime;
             }
             else
