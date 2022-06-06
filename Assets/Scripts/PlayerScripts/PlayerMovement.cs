@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (_horizontalMove == 0)
         {
-            //_playerAnimator.SetBool("IsMoving", false);
+            _playerAnimator.SetBool("IsMoving", false);
         }
         _playerAnimator.SetBool("IsGrounded", _isGrounded);
         _playerAnimator.SetBool("IsJumping", !_isGrounded);
@@ -101,12 +101,12 @@ public class PlayerMovement : MonoBehaviour
         if (_horizontalMove > 0 && _facingRight)
         {
             _playerAnimator.SetBool("Right", true);
-            // _playerAnimator.SetBool("IsMoving", true);
+             _playerAnimator.SetBool("IsMoving", true);
         }
         else if (_horizontalMove < 0 && !_facingRight)
         {
             _playerAnimator.SetBool("Right", false);
-            // _playerAnimator.SetBool("IsMoving", true);
+             _playerAnimator.SetBool("IsMoving", true);
         }
     }
     
@@ -114,31 +114,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isGrounded == true)
         {
-
             _isJumping = true;
             _jumpCounter = _jumpTime;
-            _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
-            //_rigidBody2D.velocity = Vector2.up * _jumpHeight;
-            //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime , ForceMode2D.Impulse);
+            _rigidBody2D.velocity = Vector2.up * _jumpHeight;     
         }
         if (_horizontalMove > 0 && _facingRight)
         {
             _playerAnimator.SetBool("Right", true);
-            // _playerAnimator.SetBool("IsMoving", true);
+             _playerAnimator.SetBool("IsMoving", true);
         }
         else if (_horizontalMove < 0 && !_facingRight)
         {
             _playerAnimator.SetBool("Right", false);
-            // _playerAnimator.SetBool("IsMoving", true);
+             _playerAnimator.SetBool("IsMoving", true);
         }
 
         if (_isJumping == true)
         {
             if (_jumpCounter > 0)
-            {
-                _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
-               // _rigidBody2D.velocity = Vector2.up * _jumpHeight;
-               //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime, ForceMode2D.Impulse);
+            {            
+                _rigidBody2D.velocity = Vector2.up * _jumpHeight;
                 _jumpCounter -= Time.deltaTime;
             }
             else
