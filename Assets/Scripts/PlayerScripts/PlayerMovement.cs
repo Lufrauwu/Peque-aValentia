@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (_horizontalMove == 0)
         {
-            //_playerAnimator.SetBool("IsMoving", false);
+            _playerAnimator.SetBool("IsMoving", false);
         }
         _playerAnimator.SetBool("IsGrounded", _isGrounded);
         _playerAnimator.SetBool("IsJumping", !_isGrounded);
@@ -101,12 +101,12 @@ public class PlayerMovement : MonoBehaviour
         if (_horizontalMove > 0 && _facingRight)
         {
             _playerAnimator.SetBool("Right", true);
-            // _playerAnimator.SetBool("IsMoving", true);
+             _playerAnimator.SetBool("IsMoving", true);
         }
         else if (_horizontalMove < 0 && !_facingRight)
         {
             _playerAnimator.SetBool("Right", false);
-            // _playerAnimator.SetBool("IsMoving", true);
+            _playerAnimator.SetBool("IsMoving", true);
         }
     }
     
