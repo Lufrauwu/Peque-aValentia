@@ -27,7 +27,7 @@ public class ChangeCharacter : MonoBehaviour
         _inputChange.Enable();
         _inputChange.started += _ => PlayerChange();
     }
-    
+
     private void OnDestroy()
     {
         _playerController.Disable();

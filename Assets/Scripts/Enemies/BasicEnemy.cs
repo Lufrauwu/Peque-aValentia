@@ -43,7 +43,7 @@ public class BasicEnemy : MonoBehaviour
         }
     }
 
-    public IEnumerator Freeze()
+    public IEnumerator FreezeBE()
     {
         _walkSpeed = 0;
         _enemyAnimator.gameObject.GetComponent<Animator>().enabled = false;
@@ -81,4 +81,5 @@ public class BasicEnemy : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
 
