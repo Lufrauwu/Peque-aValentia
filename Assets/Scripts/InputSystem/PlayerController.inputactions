@@ -43,7 +43,7 @@
                     "id": "d428877b-3d4b-498a-a8a3-2c5802318d42",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press(behavior=2)"
                 },
                 {
                     "name": "Heal",
@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "064706a3-0930-45ca-bce7-de2098af42e3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -247,6 +255,17 @@
                     "processors": "",
                     "groups": "Keyboard and mouse",
                     "action": "ChangeCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80a445f3-63db-4289-a9e1-e64b147616da",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

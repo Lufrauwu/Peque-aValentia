@@ -35,11 +35,12 @@ public class BetterJump : MonoBehaviour
         if (_rigidBody2D.velocity.y < 0)
         {
             _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (_fallMultiplier - 1) * Time.deltaTime;
-
+            
         }
         else if (_rigidBody2D.velocity.y > 0 && !_isPressing)
         {
             _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (_lowJumpMultiplier - 1) * Time.deltaTime;
+            
         }
     }
 }

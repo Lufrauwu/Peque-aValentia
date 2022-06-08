@@ -7,6 +7,8 @@ public class ChaseAndReturnEnemy : MonoBehaviour
     [SerializeField] private float _distance = default;
     [SerializeField] private float _speedEnemy = default;
     [SerializeField] private float _enemyHealth = default;
+    [SerializeField] private Vector2 _xVelocity = default;
+    private Animator _flyAnimator = default;
     private Transform _playerPosition = default;
     private Vector2 _currentPosition = default;
 
@@ -14,10 +16,13 @@ public class ChaseAndReturnEnemy : MonoBehaviour
     {
         _playerPosition = _player.GetComponent<Transform>();
         _currentPosition = GetComponent<Transform>().position;
+        _flyAnimator = GetComponent<Animator>();
     }
     
     void Update()
     {
+        _xVelocity.x = transform.position.x;
+        _flyAnimator.Play("Flyingbug animation");
         if (Vector2.Distance(transform.position, _playerPosition.position) < _distance)
         {
             transform.position = Vector2.MoveTowards(transform.position, _playerPosition.position, _speedEnemy * Time.deltaTime);
@@ -44,14 +49,13 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         }
     }
     
-    public IEnumerator Freeze()
+    public IEnumerator FreezeCR()
     {
+        Debug.Log("FREEZE");
         _speedEnemy = 0;
-       // _enemyAnimator.gameObject.GetComponent<Animator>().enabled = false;
         gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
         yield return new WaitForSeconds(3.0f);
-        _speedEnemy = 10;
-       // _enemyAnimator.gameObject.GetComponent<Animator>().enabled = true;
+        _speedEnemy = 24.4f;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
     
