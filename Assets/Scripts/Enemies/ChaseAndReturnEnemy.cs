@@ -54,9 +54,11 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         Debug.Log("FREEZE");
         _speedEnemy = 0;
         gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        _flyAnimator.gameObject.GetComponent<Animator>().enabled = false;
         yield return new WaitForSeconds(3.0f);
         _speedEnemy = 24.4f;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        _flyAnimator.gameObject.GetComponent<Animator>().enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
