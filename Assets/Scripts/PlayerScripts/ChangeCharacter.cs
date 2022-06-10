@@ -8,6 +8,8 @@ public class ChangeCharacter : MonoBehaviour
     [SerializeField] private GameObject _cedarPlayer = default;
     [SerializeField] private GameObject _buttonCamera = default;
     [SerializeField] private GameObject _ceddarCamera = default;
+    [SerializeField] private GameObject _cedarLife = default;
+    [SerializeField] private GameObject _buttonLife = default;
     private IceBeam iceBeam = default;
     private FireBullet fireBullet = default;
     private PlayerController _playerController = default;
@@ -40,8 +42,10 @@ public class ChangeCharacter : MonoBehaviour
         {
             _buttonCamera.SetActive(false);
             _buttonPlayer.SetActive(false);
+            _buttonLife.SetActive(false);
             _ceddarCamera.SetActive(true);
             _cedarPlayer.SetActive(true);
+            _cedarLife.SetActive(true);
             fireBullet.Activate();
             iceBeam.enabled = !iceBeam.enabled;
             _cedarPlayer.transform.position = _buttonPlayer.transform.position;
@@ -50,10 +54,12 @@ public class ChangeCharacter : MonoBehaviour
         {
             _ceddarCamera.SetActive(false);
             _cedarPlayer.SetActive(false);
+            _cedarLife.SetActive(false);
             fireBullet.Deactivate();
             iceBeam.enabled = !iceBeam.enabled;
             _buttonCamera.SetActive(true);
             _buttonPlayer.SetActive(true);
+            _buttonLife.SetActive(true);
             _buttonPlayer.transform.position = _cedarPlayer.transform.position;
         }
     }
