@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3728821839224550968}
   - component: {fileID: 4887890998638741997}
   - component: {fileID: 5529218052353111056}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FireBullet
   m_TagString: Firebullet
   m_Icon: {fileID: 0}
@@ -123,6 +123,7 @@ MonoBehaviour:
   _damageAmount: 4
   _rigidBody2D: {fileID: 5472259736894609589}
   _lifeTime: 4
+  _portalTag: Portal
 --- !u!95 &4887890998638741997
 Animator:
   serializedVersion: 3

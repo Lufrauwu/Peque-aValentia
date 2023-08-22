@@ -8,6 +8,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
     [SerializeField] private float _speedEnemy = default;
     [SerializeField] private float _enemyHealth = default;
     [SerializeField] private Vector2 _xVelocity = default;
+    private bool _flyRight = true;
     private Animator _flyAnimator = default;
     private Transform _playerPosition = default;
     private Vector2 _currentPosition = default;
@@ -39,6 +40,13 @@ public class ChaseAndReturnEnemy : MonoBehaviour
             }
         }
     }
+
+    private void FlipSprite()
+    {
+        _flyRight = !_flyRight;
+        transform.Rotate(0f, 180f, 0f);
+    }
+
 
     public void TakeDamage(int _damageRecived)
     {

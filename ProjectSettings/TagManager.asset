@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Checkpoint
   - Firebullet
+  - Portal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bullet
   - Water
   - UI
   - 
