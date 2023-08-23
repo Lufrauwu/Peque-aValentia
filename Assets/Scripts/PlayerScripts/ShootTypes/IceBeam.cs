@@ -19,7 +19,7 @@ public class IceBeam : MonoBehaviour
         _playerController.Land.Fire.performed += _ => StartCoroutine(Shoot());
 
         Deactivate();
-    }                           
+    }
 
     IEnumerator Shoot()
     {
@@ -41,7 +41,6 @@ public class IceBeam : MonoBehaviour
             {
                 _basicEnemy.TakeDamage(_damage);
                 StartCoroutine(_basicEnemy.FreezeBE());
-                
 
             }
 

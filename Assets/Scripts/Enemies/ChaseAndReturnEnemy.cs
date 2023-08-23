@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
     [SerializeField] private float _speedEnemy = default;
     [SerializeField] private float _enemyHealth = default;
     [SerializeField] private Vector2 _xVelocity = default;
+    private bool _flyRight = true;
     private Animator _flyAnimator = default;
     private Transform _playerPosition = default;
     private Vector2 _currentPosition = default;
@@ -18,7 +20,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         _currentPosition = GetComponent<Transform>().position;
         _flyAnimator = GetComponent<Animator>();
     }
-    
+
     void Update()
     {
         _xVelocity.x = transform.position.x;
@@ -31,7 +33,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, _currentPosition) <= 0)
             {
-                
+
             }
             else
             {
@@ -39,7 +41,31 @@ public class ChaseAndReturnEnemy : MonoBehaviour
             }
         }
     }
+
+    private void FixedUpdate()
+    {
+        FlippingSprite();
+    }
     
+    private void FlippingSprite()
+    {
+        if (transform.position.x > _player.transform.position.x && !_flyRight)
+        {
+            Flip(); 
+        }
+        else if (transform.position.x < _player.transform.position.x && _flyRight)
+        {
+            Flip();
+        }
+    }
+
+    private void Flip()
+    {
+        _flyRight = !_flyRight;
+        transform.Rotate(0f, 180f, 0f);
+    }
+
+
     public void TakeDamage(int _damageRecived)
     {
         _enemyHealth -= _damageRecived;
@@ -48,22 +74,26 @@ public class ChaseAndReturnEnemy : MonoBehaviour
             Die();
         }
     }
-    
     public IEnumerator FreezeCR()
     {
         Debug.Log("FREEZE");
         _speedEnemy = 0;
         gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        _flyAnimator.gameObject.GetComponent<Animator>().enabled = false;
         yield return new WaitForSeconds(3.0f);
         _speedEnemy = 24.4f;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        _flyAnimator.gameObject.GetComponent<Animator>().enabled = true;
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(Burn());
+        if (collision.CompareTag("Firebullet"))
+        {
+            StartCoroutine(Burn());
+        }
     }
-    
+
     public IEnumerator Burn()
     {
         int burnDamage = -1;
@@ -81,7 +111,7 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
-    
+
     private void Die()
     {
         Destroy(gameObject);

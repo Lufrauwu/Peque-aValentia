@@ -5,12 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Checkpoint
-  - Spikes
+  - Firebullet
+  - Portal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bullet
   - Water
   - UI
   - 
@@ -42,4 +43,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Backbackground
+    uniqueID: 3375795671
+    locked: 0
+  - name: Background
+    uniqueID: 2181453235
+    locked: 0
+  - name: Middground
+    uniqueID: 1474301223
+    locked: 0
+  - name: Foreground
+    uniqueID: 1103766119
+    locked: 0
+  - name: "telara\xF1as"
+    uniqueID: 208791519
     locked: 0
