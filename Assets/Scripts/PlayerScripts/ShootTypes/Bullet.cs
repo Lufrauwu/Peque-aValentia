@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int _damageAmount = default;
     [SerializeField] private Rigidbody2D _rigidBody2D = default;
     [SerializeField] private float _lifeTime = default;
-
+    [SerializeField] private string _portalTag = default;
     void Start()
     {
         _rigidBody2D.velocity = transform.right * _bulletSpeed;
@@ -30,7 +30,10 @@ public class Bullet : MonoBehaviour
         {
             _chaseEnemy.TakeDamage(_damageAmount);
         }
-        Destroy(gameObject);
+        if(!hitInfo.CompareTag(_portalTag))
+        {
+            Destroy(gameObject);
+        }
     }
 }
 

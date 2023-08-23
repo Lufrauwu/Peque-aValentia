@@ -1,5 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -101,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
         if (_horizontalMove > 0 && _facingRight)
         {
             _playerAnimator.SetBool("Right", true);
-             _playerAnimator.SetBool("IsMoving", true);
+            _playerAnimator.SetBool("IsMoving", true);
         }
         else if (_horizontalMove < 0 && !_facingRight)
         {
@@ -109,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
             _playerAnimator.SetBool("IsMoving", true);
         }
     }
-    
     private void Jump(InputAction.CallbackContext context)
     {
         if (_isGrounded == true)
@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
             _isJumping = true;
             _jumpCounter = _jumpTime;
-           // _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
+            // _rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
             _rigidBody2D.velocity = Vector2.up * _jumpHeight;
             //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime , ForceMode2D.Impulse);
         }
@@ -138,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //_rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * _fallMultiplier  * Time.deltaTime;
                 _rigidBody2D.velocity = Vector2.up * _jumpHeight;
-               //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime, ForceMode2D.Impulse);
+                //_rigidBody2D.AddForce(Vector2.up * _jumpHeight * Time.deltaTime, ForceMode2D.Impulse);
                 _jumpCounter -= Time.deltaTime;
             }
             else

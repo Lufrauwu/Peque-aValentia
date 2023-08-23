@@ -20,11 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 94eb44d281a3099458a09eae9b579e11, type: 3}
+      value: {fileID: 21300000, guid: f8c8d692e299f63409569182d048ce94, type: 3}
     - time: 0.1
-      value: {fileID: 21300000, guid: 404a324f7deaa4149934d3355c822a78, type: 3}
+      value: {fileID: 21300000, guid: 7d555c67e34dda242abdb603a2c50fb6, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: 404a324f7deaa4149934d3355c822a78, type: 3}
+      value: {fileID: 21300000, guid: 7d555c67e34dda242abdb603a2c50fb6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,9 +44,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 94eb44d281a3099458a09eae9b579e11, type: 3}
-    - {fileID: 21300000, guid: 404a324f7deaa4149934d3355c822a78, type: 3}
-    - {fileID: 21300000, guid: 404a324f7deaa4149934d3355c822a78, type: 3}
+    - {fileID: 21300000, guid: f8c8d692e299f63409569182d048ce94, type: 3}
+    - {fileID: 21300000, guid: 7d555c67e34dda242abdb603a2c50fb6, type: 3}
+    - {fileID: 21300000, guid: 7d555c67e34dda242abdb603a2c50fb6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -71,4 +71,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.083333336
+    functionName: ButtonLandingSound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

@@ -56,7 +56,10 @@ public class BasicEnemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(Burn());
+        if (collision.CompareTag("Firebullet"))
+        {
+            StartCoroutine(Burn());
+        }
     }
     public IEnumerator Burn()
     {
@@ -81,4 +84,5 @@ public class BasicEnemy : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
 
