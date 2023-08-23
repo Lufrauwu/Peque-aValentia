@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -41,7 +42,24 @@ public class ChaseAndReturnEnemy : MonoBehaviour
         }
     }
 
-    private void FlipSprite()
+    private void FixedUpdate()
+    {
+        FlippingSprite();
+    }
+    
+    private void FlippingSprite()
+    {
+        if (transform.position.x > _player.transform.position.x && !_flyRight)
+        {
+            Flip(); 
+        }
+        else if (transform.position.x < _player.transform.position.x && _flyRight)
+        {
+            Flip();
+        }
+    }
+
+    private void Flip()
     {
         _flyRight = !_flyRight;
         transform.Rotate(0f, 180f, 0f);
