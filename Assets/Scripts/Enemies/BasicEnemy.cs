@@ -9,10 +9,14 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] private int _enemyHealth = 10;
     [SerializeField] private float _walkSpeed = 10;
     [SerializeField] private Animator _enemyAnimator = default;
+    [SerializeField] private float _knockBackForceX = default;
+    [SerializeField] private float _knockBackForceY = default;
+    [SerializeField] private Rigidbody2D _rigidbody2D = default;
 
     private void Awake()
     {
         _enemyAnimator = GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
@@ -41,6 +45,14 @@ public class BasicEnemy : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public void KnockBackImpulse(GameObject col)
+    {
+        Vector2 knockbackForce = col.transform.position.x > transform.position.x ? new Vector2(-_knockBackForceX, _knockBackForceY)  : new Vector2(_knockBackForceX, _knockBackForceY);
+        _rigidbody2D.AddForce(knockbackForce, ForceMode2D.Force);
+        Debug.Log(knockbackForce);
+        Debug.Log("salio volando");
     }
 
     public IEnumerator FreezeBE()

@@ -27,6 +27,7 @@ public class ButtonAttack : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayers);
         foreach (Collider2D enemy in hitEnemies)  
         {
+            enemy.GetComponent<BasicEnemy>().KnockBackImpulse(_attackPoint.gameObject);
             enemy.GetComponent<BasicEnemy>().TakeDamage(_meleeDamage);
         }
     }
