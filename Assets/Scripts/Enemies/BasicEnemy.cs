@@ -5,13 +5,18 @@ public class BasicEnemy : MonoBehaviour
 {
     private bool _movingRight = true;
     private float _rayDistance = 2.0f;
+    public bool isHit = false;
     [SerializeField] private Transform _groundCheck = default;
     [SerializeField] private int _enemyHealth = 10;
     [SerializeField] private float _walkSpeed = 10;
     [SerializeField] private Animator _enemyAnimator = default;
+    [SerializeField] private bool _isGrounded = default;
+    [SerializeField] private float _detectionRadius = default;
+    [SerializeField] private Transform groundedChecK = default;  
     [SerializeField] private float _knockBackForceX = default;
     [SerializeField] private float _knockBackForceY = default;
     [SerializeField] private Rigidbody2D _rigidbody2D = default;
+    [SerializeField] private LayerMask _whatIsGround;
 
     private void Awake()
     {
@@ -19,6 +24,19 @@ public class BasicEnemy : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
     private void Update()
+    {
+        if (!isHit)
+        {
+            Movement();
+        }
+        else
+        {
+            isHit = !_isGrounded;
+            _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _detectionRadius, _whatIsGround);
+        }
+    }
+
+    public void Movement()
     {
         _enemyAnimator.Play("Walk_Bug");
         transform.Translate(Vector2.right * _walkSpeed * Time.deltaTime);
@@ -51,8 +69,7 @@ public class BasicEnemy : MonoBehaviour
     {
         Vector2 knockbackForce = col.transform.position.x > transform.position.x ? new Vector2(-_knockBackForceX, _knockBackForceY)  : new Vector2(_knockBackForceX, _knockBackForceY);
         _rigidbody2D.AddForce(knockbackForce, ForceMode2D.Force);
-        Debug.Log(knockbackForce);
-        Debug.Log("salio volando");
+        isHit = true;
     }
 
     public IEnumerator FreezeBE()
