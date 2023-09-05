@@ -125,6 +125,9 @@ MonoBehaviour:
   _enemyHealth: 10
   _walkSpeed: 200
   _enemyAnimator: {fileID: 5973312832801204891}
+  _knockBackForceX: 200
+  _knockBackForceY: 200
+  _rigidbody2D: {fileID: 0}
 --- !u!114 &7406534251676646879
 MonoBehaviour:
   m_ObjectHideFlags: 0
