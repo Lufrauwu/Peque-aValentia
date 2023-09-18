@@ -17,45 +17,51 @@ public class IceBeam : MonoBehaviour
         _inputShoot = _playerController.Land.Fire;
         _inputShoot.Enable();
         _playerController.Land.Fire.performed += _ => StartCoroutine(Shoot());
-
         Deactivate();
     }
 
     IEnumerator Shoot()
     {
-        RaycastHit2D _hitInfo = Physics2D.Raycast(_firePoint.position, _firePoint.right);
-        if (_hitInfo)
+        if (gameObject.activeInHierarchy)
         {
-            Debug.Log(_hitInfo);
-            ChaseAndReturnEnemy _chaseEnemy = _hitInfo.transform.GetComponent<ChaseAndReturnEnemy>();
-            if (_chaseEnemy != null)
+            RaycastHit2D _hitInfo = Physics2D.Raycast(_firePoint.position, _firePoint.right);
+            if (_hitInfo)
             {
-                _chaseEnemy.TakeDamage(_damage);
-                StartCoroutine(_chaseEnemy.FreezeCR());
-                Debug.Log("HITED");
+                Debug.Log(_hitInfo);
+                ChaseAndReturnEnemy _chaseEnemy = _hitInfo.transform.GetComponent<ChaseAndReturnEnemy>();
+                if (_chaseEnemy != null)
+                {
+                    _chaseEnemy.TakeDamage(_damage);
+                    StartCoroutine(_chaseEnemy.FreezeCR());
+                    Debug.Log("HITED");
 
+                }
+
+                BasicEnemy _basicEnemy = _hitInfo.transform.GetComponent<BasicEnemy>();
+                if (_basicEnemy != null)
+                {
+                    _basicEnemy.TakeDamage(_damage);
+                    StartCoroutine(_basicEnemy.FreezeBE());
+
+                }
+
+
+                _lineRenderer.SetPosition(0, _firePoint.position);
+                _lineRenderer.SetPosition(1, _hitInfo.point);
             }
-
-            BasicEnemy _basicEnemy = _hitInfo.transform.GetComponent<BasicEnemy>();
-            if (_basicEnemy != null)
+            else
             {
-                _basicEnemy.TakeDamage(_damage);
-                StartCoroutine(_basicEnemy.FreezeBE());
-
+                _lineRenderer.SetPosition(0, _firePoint.position);
+                _lineRenderer.SetPosition(1, _firePoint.position + _firePoint.right * 50);
             }
-
-
-            _lineRenderer.SetPosition(0, _firePoint.position);
-            _lineRenderer.SetPosition(1, _hitInfo.point);
+            _lineRenderer.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+            _lineRenderer.enabled = false;
         }
         else
         {
-            _lineRenderer.SetPosition(0, _firePoint.position);
-            _lineRenderer.SetPosition(1, _firePoint.position + _firePoint.right * 50);
+            yield return new WaitForSeconds(0f);
         }
-        _lineRenderer.enabled = true;
-        yield return new WaitForSeconds(0.2f);
-        _lineRenderer.enabled = false;
     }
 
     public void Activate()
