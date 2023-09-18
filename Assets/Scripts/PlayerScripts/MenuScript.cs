@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MenuScript : MonoBehaviour
 {
+    [SerializeField] private GameObject _cedar = default;
     [SerializeField] private Vector3 _mousePosition = default;
     [SerializeField] private GameObject _iceSpace = default;
     [SerializeField] private GameObject _fireSpace = default;
@@ -27,6 +29,11 @@ public class MenuScript : MonoBehaviour
         _inputSwitch.canceled += DeactivateMenu;
         _iceBeam = GetComponent<IceBeam>();
         _fireBullet = GetComponent<FireBullet>();
+    }
+
+    private void Awake()
+    {
+        _cedar = GameObject.Find("Cedar");
     }
 
     private void OnDestroy()
@@ -70,8 +77,11 @@ public class MenuScript : MonoBehaviour
 
     private void ActivateMenu(InputAction.CallbackContext context)
     {
-        _menuIsActive = true;
-        _pieMenu.SetActive(true);
+        if (gameObject.activeInHierarchy)
+        {
+            _menuIsActive = true;
+            _pieMenu.SetActive(true);
+        }
     }
 
     private void DeactivateMenu(InputAction.CallbackContext context)
@@ -98,3 +108,4 @@ public enum PowerType
     Fire,
     Ice
 }
+
