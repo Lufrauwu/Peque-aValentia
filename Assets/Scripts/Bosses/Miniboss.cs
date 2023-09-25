@@ -9,8 +9,7 @@ public class Miniboss : MonoBehaviour
    [SerializeField] private float _idleMoveSpeed = default;
    [SerializeField] private Vector2 _idleMoveDirection = default;
 
-   [Header("AttackUpNDown")] 
-   [SerializeField] private float _attackMoveSpeed = default;
+   [Header("AttackUpNDown")]
    [SerializeField] private Vector2 _attackMoveDirection = default;
 
    [Header("AttackPlayer")] 
@@ -19,17 +18,22 @@ public class Miniboss : MonoBehaviour
    private Rigidbody2D _enemyRB = default;
    private Vector2 playerPosition;
 
+   [Header("AcidAttack")] 
+   [SerializeField] private GameObject _acidBullet = default;
+   [SerializeField] private float _acidForce = default;
+   [SerializeField] private Transform _firePosition = default;
+
    [Header("Other")] 
    [SerializeField] private Transform groundCheckUp = default;
    [SerializeField] private Transform groundCheckDown = default;
    [SerializeField] private Transform groundCheckWall = default;
    [SerializeField] private float groundCheckRadius = default;
    [SerializeField] private LayerMask groundLayer = default;
-   private bool isTouchingUp;
-   private bool isTouchingDown;
-   private bool isTouchingWall;
-   private bool facingLeft;
-   private bool goingUp = true;
+  [SerializeField] private bool isTouchingUp;
+  [SerializeField] private bool isTouchingDown;
+  [SerializeField] private bool isTouchingWall;
+  [SerializeField] private bool facingLeft;
+  [SerializeField] private bool goingUp = true;
 
 
    private void Start()
@@ -39,18 +43,34 @@ public class Miniboss : MonoBehaviour
       _enemyRB = GetComponent<Rigidbody2D>();
    }
 
+   private void GetPlayerPosition()
+   {
+      playerPosition = _player.position - _firePosition.position;
+      playerPosition.Normalize();
+   }
+
    private void Update()
    {
       isTouchingUp = Physics2D.OverlapCircle(groundCheckUp.position, groundCheckRadius, groundLayer);
       isTouchingDown = Physics2D.OverlapCircle(groundCheckDown.position, groundCheckRadius, groundLayer);
       isTouchingWall = Physics2D.OverlapCircle(groundCheckWall.position, groundCheckRadius, groundLayer);
-      //IdleState();
+     
+      IdleState();
       if (Input.GetKeyDown(KeyCode.Space))
       {
-         AttackPlayer();
+         ShootAcid();  
       }
-      FlipTowardsPlayer();
+
+
    }
+
+   private void ShootAcid()
+   {
+      GetPlayerPosition();
+      GameObject acidBullet = Instantiate(_acidBullet, _firePosition.position, Quaternion.identity);
+      acidBullet.AddComponent<Rigidbody2D>().velocity = playerPosition * _acidForce;
+   }
+   
 
    private void Flip()
    {

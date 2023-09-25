@@ -7,6 +7,8 @@ TagManager:
   - Checkpoint
   - Firebullet
   - Portal
+  - Spikes
+  - Miniboss
   layers:
   - Default
   - TransparentFX
