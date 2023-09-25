@@ -55,7 +55,8 @@ public class Miniboss : MonoBehaviour
       isTouchingDown = Physics2D.OverlapCircle(groundCheckDown.position, groundCheckRadius, groundLayer);
       isTouchingWall = Physics2D.OverlapCircle(groundCheckWall.position, groundCheckRadius, groundLayer);
      
-      IdleState();
+     // IdleState();
+     FlipTowardsPlayer();
       if (Input.GetKeyDown(KeyCode.Space))
       {
          ShootAcid();  
