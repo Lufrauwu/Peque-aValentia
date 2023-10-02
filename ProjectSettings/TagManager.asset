@@ -50,8 +50,14 @@ TagManager:
   - name: Background
     uniqueID: 2181453235
     locked: 0
+  - name: BackMiddground
+    uniqueID: 1492055455
+    locked: 0
   - name: Middground
     uniqueID: 1474301223
+    locked: 0
+  - name: FrontMidground
+    uniqueID: 3859468813
     locked: 0
   - name: Foreground
     uniqueID: 1103766119

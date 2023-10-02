@@ -562,10 +562,10 @@ TextureImporter:
       name: Sprite3_17
       rect:
         serializedVersion: 2
-        x: 1178
-        y: 1339
-        width: 770
-        height: 262
+        x: 1189
+        y: 1370
+        width: 704
+        height: 221
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -981,7 +981,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4b1f52101f5da19409ae4efb7717ccf6
     internalID: 0
     vertices: []
     indices: 
