@@ -18,15 +18,20 @@ public class ButtonAttack : MonoBehaviour
         _playerController.Enable();
         _inputAttack = _playerController.Land.Fire;
         _inputAttack.Enable();
-        _playerController.Land.Fire.performed += _ => Attack();
+        _playerController.Land.Fire.performed += _ => animationAttack();
     }
 
-    void Attack()
+    public void animationAttack()
     {
         _animator.SetTrigger("Attack");
+    }
+        
+     public void Attack()
+    {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayers);
-        foreach (Collider2D enemy in hitEnemies)  
+        foreach (Collider2D enemy in hitEnemies)
         {
+            StartCoroutine(enemy.GetComponent<BasicEnemy>().KnockBackImpulse(_attackPoint.gameObject));
             enemy.GetComponent<BasicEnemy>().TakeDamage(_meleeDamage);
         }
     }

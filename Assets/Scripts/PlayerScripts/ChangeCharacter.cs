@@ -46,7 +46,7 @@ public class ChangeCharacter : MonoBehaviour
             _ceddarCamera.SetActive(true);
             _cedarPlayer.SetActive(true);
             _cedarLife.SetActive(true);
-            fireBullet.Activate();
+            fireBullet.enabled = !fireBullet.enabled;
             iceBeam.enabled = !iceBeam.enabled;
             _cedarPlayer.transform.position = _buttonPlayer.transform.position;
         }
@@ -55,7 +55,7 @@ public class ChangeCharacter : MonoBehaviour
             _ceddarCamera.SetActive(false);
             _cedarPlayer.SetActive(false);
             _cedarLife.SetActive(false);
-            fireBullet.Deactivate();
+            fireBullet.enabled = !fireBullet.enabled;
             iceBeam.enabled = !iceBeam.enabled;
             _buttonCamera.SetActive(true);
             _buttonPlayer.SetActive(true);

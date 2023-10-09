@@ -36,6 +36,9 @@ public class FireBullet : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
+        if (gameObject.activeInHierarchy)
+        {
+            Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
+        }
     }   
 }
