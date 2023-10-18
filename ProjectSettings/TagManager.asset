@@ -9,6 +9,7 @@ TagManager:
   - Portal
   - Spikes
   - Miniboss
+  - Ground
   layers:
   - Default
   - TransparentFX

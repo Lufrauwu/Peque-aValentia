@@ -1,10 +1,12 @@
 
+using System;
 using UnityEngine;
 
 public class ExplosionAcid : MonoBehaviour
 {
     [SerializeField] private float _radius = default;
     [SerializeField] private float _explosionForce = default;
+    private Animator _animator = default;
     void Start()
     {
         Explosion();
@@ -26,10 +28,12 @@ public class ExplosionAcid : MonoBehaviour
             }
         }
     }
-    
+
+   
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _radius);
     }
+    
 }
