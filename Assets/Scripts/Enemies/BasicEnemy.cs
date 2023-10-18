@@ -84,7 +84,7 @@ public class BasicEnemy : MonoBehaviour
         _enemyAnimator.gameObject.GetComponent<Animator>().enabled = false;
         gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
         yield return new WaitForSeconds(3.0f);
-        _walkSpeed = 10;
+        _walkSpeed = 2;
         _enemyAnimator.gameObject.GetComponent<Animator>().enabled = true;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
 
