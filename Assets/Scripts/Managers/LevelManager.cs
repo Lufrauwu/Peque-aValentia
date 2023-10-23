@@ -42,4 +42,10 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(_transitionTime);
         SceneManager.LoadScene(levelIndex);
     }
+
+    public IEnumerator Transition()
+    {
+        _transition.SetTrigger("Start");
+        yield return new WaitForSeconds(_transitionTime);
+    }
 }
