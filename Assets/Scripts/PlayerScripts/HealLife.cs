@@ -3,9 +3,11 @@ using UnityEngine.InputSystem;
 
 public class HealLife : MonoBehaviour
 {
-    private HealthController healthController = default;
+
+    [SerializeField] private HealthController healthController = default;
     private PlayerController _playerController = default;
     private InputAction _inputHeal = default;
+    private int _healActions = 3;
 
     void Start()
     {
@@ -24,7 +26,18 @@ public class HealLife : MonoBehaviour
 
     private void Healing()
     {
-        healthController.Heal();
+        if (_healActions > 0)
+        {
+            healthController.Heal();
+        }
+    }
+
+    private void AddActionHeal()
+    {
+        if (_healActions > 3)
+        {
+            _healActions++; 
+        }
     }
 }
 
